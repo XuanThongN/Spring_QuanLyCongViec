@@ -242,7 +242,10 @@
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-logout me-1"></i>
-                    <span>Logout</span>
+                    <form th:action="@{/logout}" method="post">
+    <button type="submit">Đăng xuất</button>
+</form>
+
                 </a>
             </div>
         </li>
