@@ -52,24 +52,24 @@ public class User {
     )
     private Collection<Task> tasks;
 
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+//	public User() {
+//		super();
+//		// TODO Auto-generated constructor stub
+//	}
 
-	public User(Long id, @NotNull @NotBlank(message = "Tên người dùng không thể để trống") String name,
-			@NotNull @NotBlank(message = "Họ tên không thể để trống") @Size(min = 5, max = 1000) Date birthday,
-			@NotNull @NotBlank(message = "Tên người dùng không thể để trống") String username, String password,
-			String roles, Collection<Task> tasks) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.birthday = birthday;
-		this.username = username;
-		this.password = password;
-		this.roles = roles;
-		this.tasks = tasks;
-	}
+//	public User(Long id, @NotNull @NotBlank(message = "Tên người dùng không thể để trống") String name,
+//			@NotNull @NotBlank(message = "Họ tên không thể để trống") @Size(min = 5, max = 1000) Date birthday,
+//			@NotNull @NotBlank(message = "Tên người dùng không thể để trống") String username, String password,
+//			String roles, Collection<Task> tasks) {
+//		super();
+//		this.id = id;
+//		this.name = name;
+//		this.birthday = birthday;
+//		this.username = username;
+//		this.password = password;
+//		this.roles = roles;
+//		this.tasks = tasks;
+//	}
 
 	public Long getId() {
 		return id;

@@ -25,9 +25,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 	private final UserRepository repository;
 
-	public WebSecurityConfig(UserRepository repository) {
-		this.repository = repository;
-	}
+//	public WebSecurityConfig(UserRepository repository) {
+//		this.repository = repository;
+//	}
 
 	@Bean
 	public UserDetailsService userDetailsService() {
