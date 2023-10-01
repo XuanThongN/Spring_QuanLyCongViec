@@ -1,0 +1,178 @@
+<div class="modal-header" th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}">
+    <h4 class="modal-title" id="TaskDetailModalLabel" th:text="${task.title}">
+        <span class="badge ms-2"
+              th:classappend="${task.priority==priority.LOW}?'bg-success':${task.priority==priority.MEDIUM}?'bg-warning':'bg-danger'"
+              th:text="${task.priority.getDisplayName()}"></span>
+    </h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+
+    <div class="p-2">
+        <h5 class="mt-0">Mô tả:</h5>
+        <p class="text-muted mb-4" th:text="${task.description}">
+        </p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="mb-4">
+                    <h5>Ngảy tạo</h5>
+                    <p>17 March 2018 <small class="text-muted">1:00 PM</small></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-4">
+                    <h5>Ngày hết hạn</h5>
+                    <!--                            <p th:text="${#dates.format(task.dueDate,'dd MMMM yyyy')}">-->
+                    <!--                                <small class="text-muted" th:text="${#dates.format(task.dueDate, 'h:mm a')}"></small>-->
+                    <!--                            </p>-->
+                    <p>
+                        <span th:text="${#dates.format(task.dueDate, 'dd MMMM yyyy')}"></span>,
+                        <small class="text-muted" th:text="${#dates.format(task.dueDate, 'h:mm aa')}"></small>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-4" id="tooltip-container">
+                    <h5>Thành viên Tham gia:</h5>
+                    <a href="javascript:void(0);" data-bs-container="#tooltip-container"
+                       data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme"
+                       class="d-inline-block">
+                        <img th:each="user:${task.users}" th:src="@{/images/users/__${user.avatar}__}"
+                             class="rounded-circle avatar-xs"
+                             th:alt="${user.name}" th:title="${user.name}">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- end row-->
+
+        <ul class="nav nav-tabs nav-bordered mb-3">
+            <li class="nav-item">
+                <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                    Bình luận
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+                    Files
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane show active" id="home-b1">
+                            <textarea class="form-control form-control-light mb-2" placeholder="Write message"
+                                      id="example-textarea" rows="3"></textarea>
+                <div class="text-end">
+                    <div class="btn-group mb-2 d-none d-sm-inline-block">
+                        <button type="button" class="btn btn-link btn-sm text-muted font-18"><i
+                                class="dripicons-paperclip"></i></button>
+                    </div>
+                    <div class="btn-group mb-2 ms-2 d-none d-sm-inline-block">
+                        <button type="button" class="btn btn-primary btn-sm">Submit</button>
+                    </div>
+                </div>
+
+                <div class="d-flex mt-2">
+                    <img class="me-3 avatar-sm rounded-circle" th:src="@{/images/users/avatar-3.jpg}"
+                         alt="Generic placeholder image">
+                    <div class="w-100">
+                        <h5 class="mt-0">Jeremy Tomlinson</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                        sollicitudin. Cras purus odio, vestibulum in
+                        vulputate at, tempus viverra turpis.
+
+                        <div class="d-flex mt-3">
+                            <a class="pe-3" href="#">
+                                <img th:src="@{/images/users/avatar-4.jpg}" class="avatar-sm rounded-circle"
+                                     alt="Generic placeholder image">
+                            </a>
+                            <div class="w-100">
+                                <h5 class="mt-0">Kathleen Thomas</h5>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                ante sollicitudin. Cras purus odio, vestibulum in
+                                vulputate at, tempus viverra turpis.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-2">
+                    <a href="javascript:void(0);" class="text-danger">Load more </a>
+                </div>
+            </div>
+            <div class="tab-pane" id="profile-b1">
+                <div class="card mb-1 shadow-none border">
+                    <div class="p-2">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="avatar-sm">
+                                                        <span class="avatar-title rounded">
+                                                            .ZIP
+                                                        </span>
+                                </div>
+                            </div>
+                            <div class="col ps-0">
+                                <a href="javascript:void(0);" class="text-muted fw-bold">Hyper-admin-design.zip</a>
+                                <p class="mb-0">2.3 MB</p>
+                            </div>
+                            <div class="col-auto">
+                                <!-- Button -->
+                                <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                    <i class="dripicons-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-1 shadow-none border">
+                    <div class="p-2">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <img th:src="@{/images/projects/project1.jpg}" class="avatar-sm rounded"
+                                     alt="file-image">
+                            </div>
+                            <div class="col ps-0">
+                                <a href="javascript:void(0);" class="text-muted fw-bold">Dashboard-design.jpg</a>
+                                <p class="mb-0">3.25 MB</p>
+                            </div>
+                            <div class="col-auto">
+                                <!-- Button -->
+                                <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                    <i class="dripicons-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-0 shadow-none border">
+                    <div class="p-2">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="avatar-sm">
+                                                        <span class="avatar-title bg-secondary rounded">
+                                                            .MP4
+                                                        </span>
+                                </div>
+                            </div>
+                            <div class="col ps-0">
+                                <a href="javascript:void(0);" class="text-muted fw-bold">Admin-bug-report.mp4</a>
+                                <p class="mb-0">7.05 MB</p>
+                            </div>
+                            <div class="col-auto">
+                                <!-- Button -->
+                                <a href="javascript:void(0);" class="btn btn-link btn-lg text-muted">
+                                    <i class="dripicons-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- .p-2 -->
+</div>

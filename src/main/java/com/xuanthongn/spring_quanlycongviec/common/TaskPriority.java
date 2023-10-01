@@ -1,19 +1,17 @@
 package com.xuanthongn.spring_quanlycongviec.common;
 
-public enum TaskState {
-    TODO("Cần làm"),
-    IN_PROGRESS("Đang làm"),
-    DONE("Hoàn thành"),
-    REVIEW("Review"),
-    SAVED("Lưu trữ");
+public enum TaskPriority {
+    LOW("Thấp"),
+    MEDIUM("Trung bình"),
+    HIGH("Cao");
 
     private final String displayName;
 
-    TaskState(String s) {
+    TaskPriority(String s) {
         displayName = s;
     }
 
     public String getDisplayName() {
         return displayName;
     }
-}
+    }

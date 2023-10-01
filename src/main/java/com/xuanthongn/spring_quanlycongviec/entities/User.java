@@ -1,5 +1,6 @@
 package com.xuanthongn.spring_quanlycongviec.entities;
 
+import com.xuanthongn.spring_quanlycongviec.common.Constant;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -42,14 +43,15 @@ public class User {
     private String password;
     private String roles;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // Quan hệ n-n với đối tượng ở dưới (Quiz) (1 người dùng có thể tham gia nhiều công vệc)
-    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
-    @ToString.Exclude // Không sử dụng trong toString()
-    @JoinTable(name = "task_user", //Tạo ra một join Table tên là "task_user"
-            joinColumns = @JoinColumn(name = "user_id"),  // TRong đó, khóa ngoại chính là user_id trỏ tới class hiện tại (User)
-            inverseJoinColumns = @JoinColumn(name = "task_id") //Khóa ngoại thứ 2 trỏ tới thuộc tính ở dưới (Task)
-    )
+    private String avatar;
+
+
+
+	// mappedBy trỏ tới tên biến tasks ở trong User.
+	@ManyToMany(mappedBy = "users")
+	// LAZY để tránh việc truy xuất dữ liệu không cần thiết. Lúc nào cần thì mới query
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
     private Collection<Task> tasks;
 
 //	public User() {

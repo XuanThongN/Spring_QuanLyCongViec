@@ -1,5 +1,6 @@
 package com.xuanthongn.spring_quanlycongviec.entities;
 
+import com.xuanthongn.spring_quanlycongviec.common.TaskPriority;
 import com.xuanthongn.spring_quanlycongviec.common.TaskState;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
@@ -36,15 +37,22 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskState state;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
+
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Collection<SubTask> subtasks;
 
-    // mappedBy trỏ tới tên biến tasks ở trong User.
-    @ManyToMany(mappedBy = "tasks")
-    // LAZY để tránh việc truy xuất dữ liệu không cần thiết. Lúc nào cần thì mới query
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // Quan hệ n-n với đối tượng ở dưới (User) (1 người dùng có thể tham gia nhiều công vệc)
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Không sử dụng trong toString()
+    @JoinTable(name = "task_user", //Tạo ra một join Table tên là "task_user"
+            joinColumns = @JoinColumn(name = "task_id"),  // TRong đó, khóa ngoại chính là task_id trỏ tới class hiện tại (Task)
+            inverseJoinColumns = @JoinColumn(name = "user_id") //Khóa ngoại thứ 2 trỏ tới thuộc tính ở dưới (User)
+    )
     private Collection<User> users;
 }
