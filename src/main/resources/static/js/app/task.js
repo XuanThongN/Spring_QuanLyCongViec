@@ -24,7 +24,7 @@
     //     }
     // });
 
-    _$form.find('button[type="submit"]').click(function (e) {
+    _$form.find('button[type="submit"]:not("#todo-btn-submit")').click(function (e) {
         e.preventDefault();
 
         // if (!_$form.valid()) {
@@ -54,34 +54,34 @@
 
     });
 
-    $(document).on('click', '.edit-cuocHop', function (e) {
-        var cuocHopId = $(this).attr('data-cuocHop-id');
-
-        abp.ajax({
-            url: abp.appPath + 'CuocHop/EditModal?Id=' + cuocHopId,
-            type: 'POST',
-            dataType: 'html',
-            success: function (content) {
-                $('#CuocHopEditModal div.modal-content').html(content);
-            },
-            error: function (e) {
-            }
-        });
-    });
-    $(document).on('click', '.view-cuocHop', function (e) {
-        var cuocHopId = $(this).attr('data-cuocHop-id');
-
-        abp.ajax({
-            url: abp.appPath + 'CuocHop/ViewModal?Id=' + cuocHopId,
-            type: 'POST',
-            dataType: 'html',
-            success: function (content) {
-                $('#CuocHopViewModal div.modal-content').html(content);
-            },
-            error: function (e) {
-            }
-        });
-    });
+    // $(document).on('click', '.edit-cuocHop', function (e) {
+    //     var cuocHopId = $(this).attr('data-cuocHop-id');
+    //
+    //     abp.ajax({
+    //         url: abp.appPath + 'CuocHop/EditModal?Id=' + cuocHopId,
+    //         type: 'POST',
+    //         dataType: 'html',
+    //         success: function (content) {
+    //             $('#CuocHopEditModal div.modal-content').html(content);
+    //         },
+    //         error: function (e) {
+    //         }
+    //     });
+    // });
+    // $(document).on('click', '.view-cuocHop', function (e) {
+    //     var cuocHopId = $(this).attr('data-cuocHop-id');
+    //
+    //     abp.ajax({
+    //         url: abp.appPath + 'CuocHop/ViewModal?Id=' + cuocHopId,
+    //         type: 'POST',
+    //         dataType: 'html',
+    //         success: function (content) {
+    //             $('#CuocHopViewModal div.modal-content').html(content);
+    //         },
+    //         error: function (e) {
+    //         }
+    //     });
+    // });
 
     $(document).on('click',".task-list-items a[data-bs-target='#task-detail-modal']",function (e){
         e.preventDefault()

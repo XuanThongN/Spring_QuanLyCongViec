@@ -1,8 +1,14 @@
 <div class="modal-header" th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}">
-    <h4 class="modal-title" id="TaskDetailModalLabel" th:text="${task.title}">
-        <span class="badge ms-2"
-              th:classappend="${task.priority==priority.LOW}?'bg-success':${task.priority==priority.MEDIUM}?'bg-warning':'bg-danger'"
-              th:text="${task.priority.getDisplayName()}"></span>
+<!--Cách 1: để chèn thẻ html vào bên trong th:text-->
+    <!--    <h4 class="modal-title" id="TaskDetailModalLabel">-->
+<!--        <span th:text="${task.title}" th:remove="tag"></span>-->
+<!--        <span class="badge ms-2" th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')" th:text="${task.priority.getDisplayName()}"></span>-->
+<!--    </h4>-->
+
+<!--    Cách 2: -->
+    <h4 class="modal-title" id="TaskDetailModalLabel" th:inline="text" >
+        [[${task.title}]]
+        <span class="badge ms-2" th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"  th:text="${task.priority.getDisplayName()}"></span>
     </h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
@@ -16,7 +22,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="mb-4">
-                    <h5>Ngảy tạo</h5>
+                    <h5>Ngày tạo</h5>
                     <p>17 March 2018 <small class="text-muted">1:00 PM</small></p>
                 </div>
             </div>
