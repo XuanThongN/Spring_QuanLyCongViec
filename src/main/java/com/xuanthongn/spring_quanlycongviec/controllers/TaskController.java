@@ -1,6 +1,7 @@
 package com.xuanthongn.spring_quanlycongviec.controllers;
 
 import com.xuanthongn.spring_quanlycongviec.dto.task.CreateTaskDto;
+import com.xuanthongn.spring_quanlycongviec.dto.task.TaskDto;
 import com.xuanthongn.spring_quanlycongviec.entities.Task;
 import com.xuanthongn.spring_quanlycongviec.repository.TaskRepository;
 import com.xuanthongn.spring_quanlycongviec.services.TaskService;
@@ -28,7 +29,7 @@ public class TaskController {
 
     @RequestMapping("/")
     public String Index(Model model) {
-        List<Task> tasks = taskService.findAll();
+        List<TaskDto> tasks = taskService.findAll();
         model.addAttribute("tasks", tasks);
         model.addAttribute("users", userService.findAll());
         return "index";
@@ -51,9 +52,10 @@ public class TaskController {
     @GetMapping("/Details/{id}")
     @ResponseBody
     public ModelAndView Details(@PathVariable Long id) {
-        Task task = taskService.findById(id);
+        TaskDto task = taskService.findById(id);
         ModelAndView modelAndView = new ModelAndView("_task-detail");
         modelAndView.addObject("task", task);
+//        modelAndView.addObject("notDone", task.getSubtasks().stream().filter(e->!e.isDone()).count());
         return modelAndView;
     }
 }

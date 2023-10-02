@@ -1,5 +1,6 @@
 package com.xuanthongn.spring_quanlycongviec.controllers;
 
+import com.xuanthongn.spring_quanlycongviec.dto.task.TaskDto;
 import com.xuanthongn.spring_quanlycongviec.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class HomeController {
     private UserService userService;
     @RequestMapping("/")
     public String Index(Model model) {
-        List<Task> tasks = taskService.findAll();
+        List<TaskDto> tasks = taskService.findAll();
         model.addAttribute("tasks", tasks);
         model.addAttribute("users", userService.findAll());
         return "index";
