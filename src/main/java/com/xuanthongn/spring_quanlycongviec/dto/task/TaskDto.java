@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 
@@ -42,4 +43,7 @@ public class TaskDto {
 
     private Collection<User> users;
     private Integer isDone;
+    private Instant createdOn;
+
+
 }

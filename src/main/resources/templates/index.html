@@ -79,7 +79,7 @@
                                                             <b>74</b> Comments
                                                         </span>
                                             </p>
-                                            <ul class="list-group list-group-flush">
+                                            <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                                                 <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
                                                     <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
@@ -154,7 +154,7 @@
                                                             <b>74</b> Comments
                                                         </span>
                                             </p>
-                                            <ul class="list-group list-group-flush">
+                                            <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                                                 <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
                                                     <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
@@ -230,7 +230,7 @@
                                                             <b>74</b> Comments
                                                         </span>
                                             </p>
-                                            <ul class="list-group list-group-flush">
+                                            <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                                                 <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
                                                     <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
@@ -304,7 +304,7 @@
                                                             <b>74</b> Comments
                                                         </span>
                                             </p>
-                                            <ul class="list-group list-group-flush">
+                                            <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                                                 <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
                                                     <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
@@ -378,7 +378,7 @@
                                                             <b>74</b> Comments
                                                         </span>
                                             </p>
-                                            <ul class="list-group list-group-flush">
+                                            <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                                                 <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
                                                     <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>

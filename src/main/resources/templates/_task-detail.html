@@ -20,7 +20,7 @@
         <h5 class="mt-0">Mô tả:</h5>
         <p class="text-muted mb-4" th:text="${task.description}">
         </p>
-        <div class="mb-3">
+        <div class="mb-3" th:if="${task.subtasks.size()>0}">
             <div class="col-xl-12">
                 <!-- Todo-->
                 <div class="card">
@@ -78,7 +78,10 @@
             <div class="col-md-4">
                 <div class="mb-4">
                     <h5>Ngày tạo</h5>
-                    <p>17 March 2018 <small class="text-muted">1:00 PM</small></p>
+                    <p>
+                        <span th:text="${#dates.format(task.createdOn, 'dd MMMM yyyy')}"></span>,
+                        <small class="text-muted" th:text="${#dates.format(task.createdOn, 'hh:mm a')}"></small>
+                    </p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -89,7 +92,7 @@
                     <!--                            </p>-->
                     <p>
                         <span th:text="${#dates.format(task.dueDate, 'dd MMMM yyyy')}"></span>,
-                        <small class="text-muted" th:text="${#dates.format(task.dueDate, 'h:mm aa')}"></small>
+                        <small class="text-muted" th:text="${#dates.format(task.dueDate, 'hh:mm a')}"></small>
                     </p>
                 </div>
             </div>
