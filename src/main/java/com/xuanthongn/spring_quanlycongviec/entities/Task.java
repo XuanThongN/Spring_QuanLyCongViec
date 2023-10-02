@@ -1,5 +1,7 @@
 package com.xuanthongn.spring_quanlycongviec.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.xuanthongn.spring_quanlycongviec.common.CollectionConverter;
 import com.xuanthongn.spring_quanlycongviec.common.TaskPriority;
 import com.xuanthongn.spring_quanlycongviec.common.TaskState;
 import jakarta.persistence.*;
@@ -14,6 +16,7 @@ import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -41,9 +44,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    @Column(columnDefinition = "MEDIUMTEXT")
+    @Convert(converter = CollectionConverter.class)
     private Collection<SubTask> subtasks;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
