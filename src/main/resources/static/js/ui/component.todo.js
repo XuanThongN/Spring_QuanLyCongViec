@@ -13,6 +13,7 @@
             this.$todoForm = t("#todo-form"),
             this.$todoInput = t("#todo-input-text"),
             this.$todoBtn = t("#todo-btn-submit"),
+            this.$todoRemoveBtn = ".todo-remove",
             // this.$todoData = [{
             //     id: "1",
             //     text: "Design One page theme",
@@ -76,8 +77,10 @@
             this.$todoList.html("");
             for (var t = 0, o = 0; o < this.$todoData.length; o++) {
                 var e = this.$todoData[o];
-                1 == e.done ? this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '" checked><label class="form-check-label" for="' + e.id + '"><s>' + e.text + "</s></label></div></li>") : (t += 1,
-                    this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '"><label class="form-check-label" for="' + e.id + '">' + e.text + "</label></div></li>"))
+                // Create a button to remove the to-do item
+                var removeButton = '<button type="button" class="btn btn-sm btn-outline-danger float-end todo-remove" data-id="' + e.id + '" style="padding: .2rem .5rem"><i class="mdi mdi-window-close"></i> </button>';
+                1 == e.done ? this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '" checked><label class="form-check-label" for="' + e.id + '"><s>' + e.text + "</s></label>"+removeButton+"</div></li>") : (t += 1,
+                    this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '"><label class="form-check-label" for="' + e.id + '">' + e.text + "</label>"+removeButton+"</div></li>"))
             }
             this.$todoTotal.text(this.$todoData.length),
                 this.$todoRemaining.text(t)
@@ -102,6 +105,13 @@
                             o.$todoForm.removeClass("was-validated"),
                             o.$todoInput.val(""),
                             !0)
+                }),
+                t(document).on("click", this.$todoRemoveBtn, function () {
+                    var id = $(this).data('id');
+                    o.$todoData = o.$todoData.filter(function (item) {
+                        return item.id !== id;
+                    })
+                    o.generate()
                 })
         }
         ,

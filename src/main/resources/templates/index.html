@@ -65,7 +65,7 @@
                                                   th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
                                                   th:text="${task.priority.getDisplayName()}"></span>
                                             <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
+                                                <a href="#"
                                                    class="text-body" th:text="${task.title}"></a>
                                             </h5>
 
@@ -80,11 +80,11 @@
                                                         </span>
                                             </p>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item p-1">
+                                                <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
-                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end">100%</span></p>
+                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
                                                     <div class="progress progress-sm" bis_skin_checked="1">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" bis_skin_checked="1">
+                                                        <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100" th:style="${'width:'+percent+'%'}" bis_skin_checked="1">
                                                         </div><!-- /.progress-bar -->
                                                     </div><!-- /.progress -->
                                                 </li>
@@ -140,7 +140,7 @@
                                                   th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
                                                   th:text="${task.priority.getDisplayName()}"></span>
                                             <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
+                                                <a href="#"
                                                    class="text-body" th:text="${task.title}"></a>
                                             </h5>
 
@@ -155,11 +155,11 @@
                                                         </span>
                                             </p>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item p-1">
+                                                <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
-                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end">100%</span></p>
+                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
                                                     <div class="progress progress-sm" bis_skin_checked="1">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" bis_skin_checked="1">
+                                                        <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100" th:style="${'width:'+percent+'%'}" bis_skin_checked="1">
                                                         </div><!-- /.progress-bar -->
                                                     </div><!-- /.progress -->
                                                 </li>
@@ -216,7 +216,7 @@
                                                   th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
                                                   th:text="${task.priority.getDisplayName()}"></span>
                                             <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
+                                                <a href="#"
                                                    class="text-body" th:text="${task.title}"></a>
                                             </h5>
 
@@ -231,11 +231,11 @@
                                                         </span>
                                             </p>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item p-1">
+                                                <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
-                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end">100%</span></p>
+                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
                                                     <div class="progress progress-sm" bis_skin_checked="1">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" bis_skin_checked="1">
+                                                        <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100" th:style="${'width:'+percent+'%'}" bis_skin_checked="1">
                                                         </div><!-- /.progress-bar -->
                                                     </div><!-- /.progress -->
                                                 </li>
@@ -290,7 +290,7 @@
                                                   th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
                                                   th:text="${task.priority.getDisplayName()}"></span>
                                             <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
+                                                <a href="#"
                                                    class="text-body" th:text="${task.title}"></a>
                                             </h5>
 
@@ -305,11 +305,11 @@
                                                         </span>
                                             </p>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item p-1">
+                                                <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
-                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end">100%</span></p>
+                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
                                                     <div class="progress progress-sm" bis_skin_checked="1">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" bis_skin_checked="1">
+                                                        <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100" th:style="${'width:'+percent+'%'}" bis_skin_checked="1">
                                                         </div><!-- /.progress-bar -->
                                                     </div><!-- /.progress -->
                                                 </li>
@@ -364,7 +364,7 @@
                                                   th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
                                                   th:text="${task.priority.getDisplayName()}"></span>
                                             <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
+                                                <a href="#"
                                                    class="text-body" th:text="${task.title}"></a>
                                             </h5>
 
@@ -379,11 +379,11 @@
                                                         </span>
                                             </p>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item p-1">
+                                                <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                                                     <!-- project progress-->
-                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end">100%</span></p>
+                                                    <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span></p>
                                                     <div class="progress progress-sm" bis_skin_checked="1">
-                                                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" bis_skin_checked="1">
+                                                        <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100" th:style="${'width:'+percent+'%'}" bis_skin_checked="1">
                                                         </div><!-- /.progress-bar -->
                                                     </div><!-- /.progress -->
                                                 </li>

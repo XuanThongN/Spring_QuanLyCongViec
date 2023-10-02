@@ -61,22 +61,10 @@
 
                     <!--Các trường này dưới đây là của todo-form-->
                     <div class="mb-3">
-                        <div class="col-xl-4">
+                        <div class="col-xl-12">
                             <!-- Todo-->
                             <div class="card">
                                 <div class="card-body px-0">
-<!--                                    <div class="dropdown float-end">-->
-<!--                                        <a href="#" class="dropdown-toggle arrow-none card-drop"-->
-<!--                                           data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                                            <i class="mdi mdi-dots-vertical"></i>-->
-<!--                                        </a>-->
-<!--                                        <div class="dropdown-menu dropdown-menu-end">-->
-<!--                                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                                            <a href="javascript:void(0);" class="dropdown-item">Settings</a>-->
-<!--                                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                     <h4 class="header-title mb-3">Việc cần làm</h4>
 
                                     <div class="todoapp">
@@ -148,12 +136,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="task-title" class="form-label">Thành viên tham gia</label>
+                                <label for="task-title" class="form-label">Trạng thái</label>
                                 <select class="form-select" name="state" required>
                                     <option th:each="st: ${state.values()}" th:value="${st}"
                                             th:text="${st.getDisplayName()}"></option>
                                 </select>
                                 <div class="invalid-feedback">
+                                    Chọn trạng thái
                                 </div>
                             </div>
                         </div>

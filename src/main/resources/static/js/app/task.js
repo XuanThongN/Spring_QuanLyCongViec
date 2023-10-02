@@ -34,6 +34,7 @@
         var task = _$form.serializeFormToObject();
         task.users = [...new Set(_$form.find('.select2[data-toggle="select2"]').val())]
         task.dueDate = _$form.find('#birthdatepicker').datepicker('getDate')
+        task.subtasks = jQuery.TodoApp.$todoData || []
 
         $.ajax({
             url: '/Task/Create',
@@ -83,7 +84,7 @@
     //     });
     // });
 
-    $(document).on('click',".task-list-items a[data-bs-target='#task-detail-modal']",function (e){
+    $(document).on('click',".task-list-items h5 a",function (e){
         e.preventDefault()
         let id = $(this).closest("div[data-task-id]").data("task-id")
         $.ajax({
@@ -93,6 +94,7 @@
             dataType: "html",
             async: true,
             success: function (content) {
+                _$modal_view.modal('show')
                 _$modal_view.find(".modal-content").html(content)
             },
             error: function (e) {
@@ -104,5 +106,12 @@
         _$modal.find('input:not([type=hidden]):first').focus();
     }).on('hidden.bs.modal', () => {
         _$form.clearForm();
+    });
+
+    //Làm rỗng modal view khi tắt
+    _$modal_view.on('shown.bs.modal', function () {
+
+    }).on('hidden.bs.modal', () => {
+        $(this).html('')
     });
 })(jQuery);
