@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+    <meta content="Coderthemes" name="author">
+
+    <link th:href="@{~/images/favicon.ico}" rel="shortcut icon"/>
+    <link th:href="@{/css/icons.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/app.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+</head>
+
+<style>
+
+    .btn-group {
+        display: flex;
+        justify-content: center; /* Căn giữa theo chiều ngang */
+        align-items: center; /* Căn giữa theo chiều dọc */
+        gap: 10px; /* Khoảng cách giữa các nút */
+    }
+</style>
+<body>
+
+<div class="wrapper">
+    <div th:replace="shared/_left-side :: leftside-menu">
+    </div>
+    <div class="content-page">
+        <div class="content">
+            <div th:replace="shared/_top-bar :: topbar"></div>
+            <!-- end Topbar -->
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height:620px;">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="staticBackdropLabel">Thêm người dùng mới</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id='add' action='#' class='add_form'>
+                            <div class='modal-body'>
+                                <div id='msg'></div>
+                                <div class='form-group'>
+                                    <label for='name' class=' mt-2'>Họ và tên:</label>
+                                    <input type='text' id='name' name='name' class='form-control'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='birthday' class=' mt-2'>Ngày sinh:</label>
+                                    <input type='date' id='birthday' name='birthday' class='form-control'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='username' class='mt-2'>Tên tài khoản:</label>
+                                    <input type='text' id='username' name='username' class='form-control'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='password' class=' mt-2'>Mật khẩu:</label>
+                                    <input type='password' id='password' name='password' class='form-control'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='roles' class=' mt-2'>Quyền hạn:</label>
+                                    <select id='roles' name='roles' class='form-control'>
+                                        <option value='admin'>Admin</option>
+                                        <option value='user'>User</option>
+                                        <option value='guest'>Guest</option>
+                                        <!-- Thêm các tùy chọn khác nếu cần -->
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='avatar' class='mb-2 mt-2'>Ảnh đại diện:</label>
+                                    <input type='text' id='avatar' name='avatar' class='form-control'>
+                                </div>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                                <button type='submit' id='addNew' class='btn btn-success'>Xác nhận</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-center">Quản lý thông tin người dùng</h2>
+            <button type="button" class="btn btn-success mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Thêm người dùng mới
+            </button>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ và tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Tài khoản</th>
+                    <th>Mật khẩu</th>
+                    <th>Quyền hạn</th>
+                    <th>Ảnh đại diện</th>
+                    <th class="text-center">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Dữ liệu người dùng sẽ được thêm ở đây bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Hàm này sẽ lấy danh sách người dùng thông qua AJAX và hiển thị trên bảng
+        function loadUserList() {
+            $.getJSON('http://localhost:8083/userList', function (json) {
+                var tr = [];
+                for (var i = 0; i < json.length; i++) {
+                    tr.push('<tr>');
+                    tr.push('<td>' + json[i].id + '</td>');
+                    tr.push('<td>' + json[i].name + '</td>');
+                    tr.push('<td>' + json[i].birthday + '</td>');
+                    tr.push('<td>' + json[i].username + '</td>');
+                    tr.push('<td>' + json[i].password + '</td>');
+                    tr.push('<td>' + json[i].roles + '</td>');
+                    tr.push('<td>' + json[i].avatar + '</td>');
+                    tr.push('<td class="btn-group"><button class=\'edit btn btn-sm btn-primary\'>Sửa</button>&nbsp;&nbsp;<button class=\'delete btn btn-sm btn-danger\' id=' + json[i].id + '>Xoá</button></td>');
+                    tr.push('</tr>');
+                }
+                $('table tbody').html(tr.join(''));
+            });
+        }
+
+        // Gọi hàm để load danh sách người dùng ban đầu
+        loadUserList();
+
+        // Xử lý sự kiện thêm người dùng mới
+        $(document).delegate('#addNew', 'click', function (event) {
+            event.preventDefault();
+
+            var name = $('#name').val();
+            var birthday = $('#birthday').val();
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var roles = $('#roles').val();
+            var avatar = $('#avatar').val();
+
+            // Tạo đối tượng người dùng với các thuộc tính
+            var newUser = {
+                'name': name,
+                'birthday': birthday,
+                'username': username,
+                'password': password,
+                'roles': roles,
+                'avatar': avatar
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "http://localhost:8083/user/save",
+                data: JSON.stringify(newUser),
+                cache: false,
+                success: function (result) {
+                    $("#msg").html("<span style='color: green'>User added successfully</span>");
+                    loadUserList();
+
+                    // Reset input fields
+                    $("#name").val("");
+                    $("#birthday").val("");
+                    $("#username").val("");
+                    $("#password").val("");
+                    $("#roles").val("");
+                    $("#avatar").val("");
+                },
+                error: function (err) {
+                    $("#msg").html("<span style='color: red'>Name is required</span>");
+                }
+            });
+        });
+
+        // Xử lý sự kiện xóa người dùng
+        $(document).delegate('.delete', 'click', function () {
+            if (confirm('Do you really want to delete this user?')) {
+                var id = $(this).attr('id');
+                var parent = $(this).parent().parent();
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8083/user/delete/" + id,
+                    cache: false,
+                    success: function () {
+                        parent.fadeOut('slow', function () {
+                            $(this).remove();
+                        });
+                        loadUserList();
+                    },
+                    error: function () {
+                        $('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting record').fadeIn().fadeOut(4000, function () {
+                            $(this).remove();
+                        });
+                    }
+                });
+            }
+        });
+
+        // Xử lý sự kiện chỉnh sửa người dùng
+        $(document).delegate('.edit', 'click', function () {
+            var parent = $(this).parent().parent();
+
+            var id = parent.children("td:nth-child(1)");
+            var name = parent.children("td:nth-child(2)");
+            var birthday = parent.children("td:nth-child(3)");
+            var username = parent.children("td:nth-child(4)");
+            var password = parent.children("td:nth-child(5)");
+            var roles = parent.children("td:nth-child(6)");
+            var avatar = parent.children("td:nth-child(7)");
+            var buttons = parent.children("td:nth-child(8)");
+
+            name.html("<input type='text' id='txtName' value='" + name.html() + "' class='form-control'/>");
+            birthday.html("<input type='date' id='txtBirthday' value='" + birthday.html() + "' class='form-control'/>");
+            username.html("<input type='text' id='txtUsername' value='" + username.html() + "' class='form-control'/>");
+            password.html("<input type='text' id='txtPassword' value='" + password.html() + "' class='form-control'/>");
+            roles.html("<input type='text' id='txtRoles' value='" + roles.html() + "' class='form-control'/>");
+            avatar.html("<input type='text' id='txtAvatar' value='" + avatar.html() + "' class='form-control'/>");
+            buttons.html("<button id='save' class='btn btn-sm btn-success'>Lưu</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Delete</button>");
+        });
+
+        // Xử lý sự kiện lưu thông tin chỉnh sửa người dùng
+        $(document).delegate('#save', 'click', function () {
+            var parent = $(this).parent().parent();
+
+            var id = parent.children("td:nth-child(1)");
+            var name = parent.children("td:nth-child(2)");
+            var birthday = parent.children("td:nth-child(3)");
+            var username = parent.children("td:nth-child(4)");
+            var password = parent.children("td:nth-child(5)");
+            var roles = parent.children("td:nth-child(6)");
+            var avatar = parent.children("td:nth-child(7)");
+            var buttons = parent.children("td:nth-child(8)");
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "http://localhost:8083/user/save",
+                data: JSON.stringify({
+                    'id': id.html(),
+                    'name': name.children("input[type=text]").val(),
+                    'birthday': birthday.children("input[type=date]").val(),
+                    'username': username.children("input[type=text]").val(),
+                    'password': password.children("input[type=text]").val(),
+                    'roles': roles.children("input[type=text]").val(),
+                    'avatar': avatar.children("input[type=text]").val()
+                }),
+                cache: false,
+                success: function () {
+                    name.html(name.children("input[type=text]").val());
+                    birthday.html(birthday.children("input[type=date]").val());
+                    username.html(username.children("input[type=text]").val());
+                    password.html(password.children("input[type=text]").val());
+                    roles.html(roles.children("input[type=text]").val());
+                    avatar.html(avatar.children("input[type=text]").val());
+                    buttons.html("<button class='edit btn btn-sm btn-primary'>Edit</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Delete</button>");
+                },
+                error: function () {
+                    $('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error updating record').fadeIn().fadeOut(4000, function () {
+                        $(this).remove();
+                    });
+                }
+            });
+        });
+
+    });
+</script>
+</html>

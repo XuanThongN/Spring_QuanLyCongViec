@@ -22,9 +22,7 @@ public class UserController {
 
     @GetMapping("/list")
     public String listUsers(Model theModel) {
-        List<User> theUsers = userService.findAll();
-        theModel.addAttribute("users", theUsers);
-        return "user/list-user";
+        return "user/index";
     }
 
     @GetMapping("/showFormForAdd")

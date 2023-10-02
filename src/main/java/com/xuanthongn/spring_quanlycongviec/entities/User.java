@@ -33,14 +33,14 @@
             @NotBlank(message = "Tên người dùng không thể để trống")
             private String name;
 
-        @NotNull(message = "Ngày sinh không thể để trống")
+//        @NotNull(message = "Ngày sinh không thể để trống")
         @Temporal(TemporalType.DATE)
         @DateTimeFormat(pattern = "yyyy-MM-dd") // Định dạng ngày tháng
         private Date birthday;
 
 
 
-            @NotNull
+//            @NotNull
             @NotBlank(message = "Tên người dùng không thể để trống")
             private String username;
             private String password;
