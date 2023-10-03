@@ -2,6 +2,7 @@ package com.xuanthongn.spring_quanlycongviec.controllers;
 
 import com.xuanthongn.spring_quanlycongviec.dto.task.CreateTaskDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.TaskDto;
+import com.xuanthongn.spring_quanlycongviec.dto.task.UpdateTaskDto;
 import com.xuanthongn.spring_quanlycongviec.entities.Task;
 import com.xuanthongn.spring_quanlycongviec.repository.TaskRepository;
 import com.xuanthongn.spring_quanlycongviec.services.TaskService;
@@ -27,35 +28,82 @@ public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
 
-    @RequestMapping("/")
-    public String Index(Model model) {
-        List<TaskDto> tasks = taskService.findAll();
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("users", userService.findAll());
+    @RequestMapping("")
+    public String Index() {
         return "index";
+    }
+
+    @RequestMapping("/LoadBoard")
+    @ResponseBody
+    public ModelAndView LoadBoard(Model model) {
+        try {
+            ModelAndView modelAndView = new ModelAndView("_task-load-board");
+            modelAndView.addObject("tasks", taskService.findAll());
+            modelAndView.addObject("users", userService.findAll());
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView();
     }
 
     @PostMapping("/Create")
     public String Create(@RequestBody @Valid CreateTaskDto task, BindingResult bindingResult) {
-        // Khi có BindingResult thì lỗi được tạm bỏ qua để xử lý thủ công
-        // Nếu có lỗi thì chặn lại
-        if (bindingResult.hasErrors())
-            try {
-                throw new Exception("...");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        taskService.save(task);
+        try {
+            // Khi có BindingResult thì lỗi được tạm bỏ qua để xử lý thủ công
+            // Nếu có lỗi thì chặn lại
+            if (bindingResult.hasErrors())
+                try {
+                    throw new Exception("...");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            taskService.save(task);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "index";
     }
 
     @GetMapping("/Details/{id}")
     @ResponseBody
     public ModelAndView Details(@PathVariable Long id) {
-        TaskDto task = taskService.findById(id);
-        ModelAndView modelAndView = new ModelAndView("_task-detail");
-        modelAndView.addObject("task", task);
-//        modelAndView.addObject("notDone", task.getSubtasks().stream().filter(e->!e.isDone()).count());
-        return modelAndView;
+        try {
+            TaskDto task = taskService.findById(id);
+            ModelAndView modelAndView = new ModelAndView("_task-detail");
+            modelAndView.addObject("task", task);
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GetMapping("/Update/{id}")
+    @ResponseBody
+    public ModelAndView Update(@PathVariable Long id) {
+        try {
+            TaskDto task = taskService.findById(id);
+            ModelAndView modelAndView = new ModelAndView("_task-update");
+            modelAndView.addObject("task", task);
+            modelAndView.addObject("users", userService.findAll());
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @PostMapping("/Update")
+    public String Update(@RequestBody @Valid UpdateTaskDto task, BindingResult bindingResult) {
+        try {
+            // Khi có BindingResult thì lỗi được tạm bỏ qua để xử lý thủ công
+            // Nếu có lỗi thì chặn lại
+            if (bindingResult.hasErrors()) return null;
+            taskService.update(task);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "index";
     }
 }

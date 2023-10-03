@@ -22,13 +22,13 @@ public class HomeController {
     private TaskService taskService;
     @Autowired
     private UserService userService;
-    @RequestMapping("/")
-    public String Index(Model model) {
-        List<TaskDto> tasks = taskService.findAll();
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("users", userService.findAll());
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String Index(Model model) {
+//        List<TaskDto> tasks = taskService.findAll();
+//        model.addAttribute("tasks", tasks);
+//        model.addAttribute("users", userService.findAll());
+//        return "index";
+//    }
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("hello is exception");

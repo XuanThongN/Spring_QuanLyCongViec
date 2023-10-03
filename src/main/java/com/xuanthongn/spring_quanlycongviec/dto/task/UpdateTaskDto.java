@@ -1,31 +1,34 @@
 package com.xuanthongn.spring_quanlycongviec.dto.task;
 
-import com.xuanthongn.spring_quanlycongviec.common.CollectionConverter;
 import com.xuanthongn.spring_quanlycongviec.common.TaskPriority;
 import com.xuanthongn.spring_quanlycongviec.common.TaskState;
 import com.xuanthongn.spring_quanlycongviec.entities.SubTask;
-import com.xuanthongn.spring_quanlycongviec.entities.User;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 
-@Data
-public class TaskDto {
+@Data // annotation này sẽ tự động khai báo getter và setter cho class
+@AllArgsConstructor // dùng để khai báo constructor với tất cả các properties
+@NoArgsConstructor //
+@Builder
+public class UpdateTaskDto {
+    @NotNull
     private Long id;
-
     @NotNull
     @NotBlank(message = "Tiêu đề không được để trống")
     private String title;
 
     @NotNull
+    @Size(min = 5, max = 1000)
     private String description;
 
     @NotNull
@@ -41,10 +44,6 @@ public class TaskDto {
 
     private Collection<SubTask> subtasks;
 
-    private Collection<User> users;
-    private Collection<Integer> userIds;
-    private Integer isDone;
-    private Instant createdOn;
-
-
+    @NotNull
+    private Collection<Integer> users;
 }

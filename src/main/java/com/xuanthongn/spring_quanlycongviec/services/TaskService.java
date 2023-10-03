@@ -2,6 +2,7 @@ package com.xuanthongn.spring_quanlycongviec.services;
 
 import com.xuanthongn.spring_quanlycongviec.dto.task.CreateTaskDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.TaskDto;
+import com.xuanthongn.spring_quanlycongviec.dto.task.UpdateTaskDto;
 import com.xuanthongn.spring_quanlycongviec.entities.SubTask;
 import com.xuanthongn.spring_quanlycongviec.entities.Task;
 import com.xuanthongn.spring_quanlycongviec.entities.User;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,11 +49,21 @@ public class TaskService implements ITaskService {
         Task savedEntity = taskRepository.save(entity);
         return mapper.map(savedEntity, TaskDto.class);
     }
+    @Override
+    public TaskDto update(UpdateTaskDto input) {
+        Task entity = taskRepository.findById(input.getId()).get();
+        entity = mapper.map(input,Task.class);
+        Collection<User> users = userRepository.findAllById(input.getUsers().stream().map(Long::valueOf).collect(Collectors.toList()));
+        entity.setUsers(users);
+        Task savedEntity = taskRepository.save(entity);
+        return mapper.map(savedEntity, TaskDto.class);
+    }
 
     @Override
     public TaskDto findById(long id) {
         TaskDto data = mapper.map(taskRepository.findById(id).get(), TaskDto.class);
         data.setIsDone(data.getSubtasks().stream().filter(SubTask::isDone).toList().size());
+        data.setUserIds(data.getUsers().stream().map(e->e.getId().intValue()).collect(Collectors.toList()));
         return data;
     }
 
