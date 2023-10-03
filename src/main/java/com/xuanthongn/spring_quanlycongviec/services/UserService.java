@@ -79,4 +79,5 @@ public class UserService implements UserDetailsService, IGenericService<User> {
     public long count() {
         return userRepository.count();
     }
+
 }
