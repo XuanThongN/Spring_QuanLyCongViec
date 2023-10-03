@@ -7,11 +7,7 @@ import com.xuanthongn.spring_quanlycongviec.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
@@ -24,30 +20,16 @@ public class UserController {
     public String listUsers(Model theModel) {
         return "user/index";
     }
+    @GetMapping("/detail/{userId}")
+    public String showUserDetail(@PathVariable int userId, Model theModel) {
+        // Lấy thông tin chi tiết của người dùng theo userId từ service
+        User user = userService.findById(userId);
 
-    @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model theModel) {
-        User theUser = new User();
-        theModel.addAttribute("user", theUser);
-        return "user/add-user";
+        // Đưa thông tin người dùng vào model
+        theModel.addAttribute("user", user);
+
+        // Chuyển đến trang chi tiết
+        return "user/detail";
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User theUser) {
-        userService.save(theUser);
-        return "redirect:/user/list";
-    }
-
-    @GetMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("userId") int theId, Model theModel) {
-        User theUser = userService.findById(theId);
-        theModel.addAttribute("user", theUser);
-        return "user/edit-user";
-    }
-
-    @GetMapping("/delete")
-    public String deleteUser(@RequestParam("userId") int theId) {
-        userService.deleteById(theId);
-        return "redirect:/user/list";
-    }
 }

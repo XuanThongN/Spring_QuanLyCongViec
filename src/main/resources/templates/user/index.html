@@ -82,7 +82,7 @@
 
     /* Định dạng nút phân trang đang chọn (active) */
     #paginationInfo span.active {
-        background-color: lawngreen; /* Đặt màu nền là đỏ cho nút đang chọn */
+        background-color: #0acf97; /* Đặt màu nền là đỏ cho nút đang chọn */
         color: white; /* Đặt màu chữ là trắng để chữ hiển thị rõ trên nền đỏ */
     }
 
@@ -97,7 +97,7 @@
             <!-- Modal xác nhận xoá -->
             <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel"
                  aria-hidden="true"
-                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height:280px;">
+                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height:285px;">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -155,7 +155,7 @@
                                 </div>
                                 <div class='form-group'>
                                     <label for='avatar' class='mt-2'>Ảnh đại diện:</label>
-                                    <input type='text' id='avatar' name='avatar' class='form-control'>
+                                    <input type='file' id='avatar' name='avatar' class='form-control-file d-block'>
                                 </div>
                             </div>
                             <div class='modal-footer' style="padding:0;">
@@ -201,9 +201,9 @@
                 </tbody>
             </table>
             <div class="pagination-container">
-                <button type="button" class="btn btn-primary" id="prevButton">Trước</button>
+                <button type="button" class="btn btn-info" id="prevButton">Trước</button>
                 <div id="paginationInfo"></div>
-                <button type="button" class="btn btn-primary" id="nextButton">Sau</button>
+                <button type="button" class="btn btn-info" id="nextButton">Sau</button>
             </div>
 
         </div>
@@ -211,6 +211,21 @@
 </div>
 </body>
 <script type="text/javascript">
+    // Xử lý sự kiện click cho nút "Chi tiết"
+    $(document).on('click', '.detail', function () {
+        // Tìm thẻ tr cha của nút đã được nhấp
+        var row = $(this).closest('tr');
+
+        // Lấy ID từ thẻ td chứa ID (điều này phụ thuộc vào cấu trúc HTML của bảng)
+        var userId = row.find('td:first').text();
+
+        // userId là ID của người dùng bạn cần
+        console.log('ID của người dùng được chọn:', userId);
+
+        // Chuyển đến trang chi tiết người dùng
+        window.location.href = '/user/detail/' + userId;
+    });
+
     $(document).ready(function () {
         var currentPage = 1;
         var usersPerPage = 5;
@@ -261,7 +276,7 @@
                 tr.push('<td>' + usersToDisplay[i].password + '</td>');
                 tr.push('<td>' + usersToDisplay[i].roles + '</td>');
                 tr.push('<td>' + usersToDisplay[i].avatar + '</td>');
-                tr.push('<td class="btn-group"><button class="edit btn btn-sm btn-primary">Sửa</button>&nbsp;&nbsp;<button class="delete btn btn-sm btn-danger" id="' + usersToDisplay[i].id + '">Xoá</button></td>');
+                tr.push('<td class="btn-group"><button class="edit btn btn-sm btn-primary">Sửa</button>&nbsp;&nbsp;<button class="detail text-light btn btn-sm btn-warning">Chi tiết</button>&nbsp;&nbsp;<button class="delete btn btn-sm btn-danger" id="' + usersToDisplay[i].id + '">Xoá</button></td>');
                 tr.push('</tr>');
             }
             $('table tbody').html(tr.join(''));
@@ -341,14 +356,14 @@
             var password = $('#password').val();
             var roles = $('#roles').val();
             var avatar = $('#avatar').val();
-
+            var fileName = avatar.replace(/^.*[\\\/]/, '');
             var newUser = {
                 'name': name,
                 'birthday': birthday,
                 'username': username,
                 'password': password,
                 'roles': roles,
-                'avatar': avatar
+                'avatar': fileName
             };
 
             $.ajax({
@@ -363,7 +378,7 @@
                     // window.location.reload();
                     Swal.fire({
                         icon: 'success',
-                        title: 'Success!',
+                        title: 'Thành công!',
                         text: 'User added successfully',
                     }).then(function () {
                         // Đóng modal
@@ -489,7 +504,7 @@
                         password.html(editedPassword);
                         roles.html(editedRoles);
                         avatar.html(editedAvatar);
-                        buttons.html("<button class='edit btn btn-sm btn-primary'>Sửa</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Xoá</button>");
+                        buttons.html("<button class='edit btn btn-sm btn-primary'>Sửa</button>&nbsp;&nbsp;<button class=\"detail text-light btn btn-sm btn-warning\">Chi tiết</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Xoá</button>");
                     },
                     error: function () {
                         $('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error updating record').fadeIn().fadeOut(4000, function () {
