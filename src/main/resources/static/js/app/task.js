@@ -41,6 +41,7 @@
                 _$modal.modal('hide');
                 _$form[0].reset();
                 _$modal.find("select.select2").val('')
+                $.renderBoard()
                 $.NotificationApp.send("Thành công", "Thêm thành công", "Position", "green", "Hello")
             },
             error: function (e) {
