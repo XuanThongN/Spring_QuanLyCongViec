@@ -1,0 +1,160 @@
+<div th:fragment="_task-create" class="modal fade task-modal-content" id="add-new-task-modal" tabindex="-1"
+     role="dialog"
+     aria-labelledby="NewTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="NewTaskModalLabel">Tạo mới Công việc</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--   Vì HTML không cho phép form lồng trong form nên phải khai báo todo-form ở ngoài task-form
+                       Nhưng các trường của todo-form vẫn nằm bên trong task-form-->
+                <form name="todo-form" id="todo-form" class="needs-validation" novalidate=""></form>
+                <form id="task-form" class="p-2 needs-validation" novalidate>
+                    <!--                            <div class="mb-3">-->
+                    <!--                                <label class="form-label">Project</label>-->
+                    <!--                                <select class="form-select form-control-light">-->
+                    <!--                                    <option>Select</option>-->
+                    <!--                                    <option>Hyper - Admin Dashboard</option>-->
+                    <!--                                    <option>CRM - Design & Development</option>-->
+                    <!--                                    <option>iOS - App Design</option>-->
+                    <!--                                </select>-->
+                    <!--                            </div>-->
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="task-title" class="form-label">Tiêu đề</label>
+                                <input type="text" name="title" class="form-control form-control-light" id="task-title"
+                                       placeholder="Nhập tiêu đề" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="task-priority2" class="form-label">Độ ưu tiên</label>
+                                <select name="priority" class="form-select form-control-light" id="task-priority2"
+                                        required>
+                                    <option th:value="${priority.LOW}"
+                                            th:text="${priority.LOW.getDisplayName()}"></option>
+                                    <option th:value="${priority.MEDIUM}"
+                                            th:text="${priority.MEDIUM.getDisplayName()}"></option>
+                                    <option th:value="${priority.HIGH}"
+                                            th:text="${priority.HIGH.getDisplayName()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editor" class="form-label">Mô tả</label>
+                        <textarea class="form-control form-control-light" id="editor" name="description"
+                                  rows="5" required></textarea>
+                        <div class="invalid-feedback">
+                            Vui lòng thêm mô tả công việc.
+                        </div>
+                    </div>
+
+                    <!--Các trường này dưới đây là của todo-form-->
+                    <div class="mb-3">
+                        <div class="col-xl-12">
+                            <!-- Todo-->
+                            <div class="card">
+                                <div class="card-body px-0">
+                                    <h4 class="header-title mb-3">Việc cần làm</h4>
+
+                                    <div class="todoapp">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 id="todo-message"><span id="todo-remaining"></span> của <span
+                                                        id="todo-total"></span> còn lại</h5>
+                                            </div>
+                                            <div class="col-auto">
+<!--                                                <a href="" class="float-end btn btn-light btn-sm" id="btn-archive">Archive</a>-->
+                                            </div>
+                                        </div>
+
+                                        <div style="max-height: 314px;" data-simplebar="">
+                                            <ul class="list-group list-group-flush todo-list" id="todo-list"></ul>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <input form="todo-form" type="text" id="todo-input-text"
+                                                       name="todo-input-text"
+                                                       class="form-control" placeholder="Thêm mới Việc cần làm" required="">
+                                                <div class="invalid-feedback">
+                                                    Vui lòng nhập tiêu đề Việc cần làm
+                                                </div>
+                                            </div>
+                                            <div class="col-auto d-grid">
+                                                <button class="btn-primary btn-md btn waves-effect waves-light"
+                                                        form="todo-form" type="submit" id="todo-btn-submit">Thêm
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div> <!-- end .todoapp-->
+                                </div> <!-- end card-body -->
+                            </div> <!-- end card-->
+                        </div> <!-- end col-->
+                    </div>
+                    <!--Hết todo-form-->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="task-title" class="form-label">Thành viên tham gia</label>
+                                <select class="select2 form-select select2-multiple" data-toggle="select2"
+                                        multiple="multiple" data-placeholder="Chọn thành viên ..." required>
+                                    <optgroup label="Danh sách Thành viên">
+                                        <option th:each="user: ${users}" th:value="${user.id}"
+                                                th:text="${user.name}"></option>
+                                    </optgroup>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Chọn Thành viên tham gia.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Ngày hết hạn</label>
+                                <input type="text" name="dueDate" class="form-control form-control-light"
+                                       id="birthdatepicker"
+                                       data-toggle="date-picker" data-single-date-picker="true" required>
+                                <div class="invalid-feedback">
+                                    Chọn ngày hết hạn.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="task-title" class="form-label">Trạng thái</label>
+                                <select class="form-select" name="state" required>
+                                    <option th:each="st: ${state.values()}" th:value="${st}"
+                                            th:text="${st.getDisplayName()}"></option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Chọn trạng thái
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Huỷ</button>
+                        <button type="submit" form="task-form" class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

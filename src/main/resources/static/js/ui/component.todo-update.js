@@ -2,47 +2,18 @@
     "use strict";
 
     function o() {
-        this.$body = t("body #add-new-task-modal"),
-            this.$todoContainer = t("#todo-container"),
-            this.$todoMessage = t("#todo-message"),
-            this.$todoRemaining = t("#todo-remaining"),
-            this.$todoTotal = t("#todo-total"),
-            this.$archiveBtn = t("#btn-archive"),
-            this.$todoList = t("#todo-list"),
+        this.$body = t("body #task-update-modal"),
+            this.$todoContainer = t("#task-update-modal #todo-container"),
+            this.$todoMessage = t("#task-update-modal #todo-message"),
+            this.$todoRemaining = t("#task-update-modal #todo-remaining"),
+            this.$todoTotal = t("#task-update-modal #todo-total"),
+            this.$archiveBtn = t("#task-update-modal #btn-archive"),
+            this.$todoList = t("#task-update-modal #todo-list"),
             this.$todoDonechk = ".todo-done",
-            this.$todoForm = t("#todo-form"),
-            this.$todoInput = t("#todo-input-text"),
-            this.$todoBtn = t("#todo-btn-submit"),
-            this.$todoRemoveBtn = ".todo-remove",
-            // this.$todoData = [{
-            //     id: "1",
-            //     text: "Design One page theme",
-            //     done: !1
-            // }, {
-            //     id: "2",
-            //     text: "Build a js based app",
-            //     done: !0
-            // }, {
-            //     id: "3",
-            //     text: "Creating component page",
-            //     done: !0
-            // }, {
-            //     id: "4",
-            //     text: "Testing??",
-            //     done: !0
-            // }, {
-            //     id: "5",
-            //     text: "Hehe!! This looks cool!",
-            //     done: !1
-            // }, {
-            //     id: "6",
-            //     text: "Create new version 3.0",
-            //     done: !1
-            // }, {
-            //     id: "7",
-            //     text: "Build an angular app",
-            //     done: !0
-            // }],
+            this.$todoForm = t("#task-update-modal #todo-update-form"),
+            this.$todoInput = t("#task-update-modal #todo-input-text"),
+            this.$todoBtn = t("#task-update-modal #todo-btn-submit"),
+            this.$todoRemoveBtn = "#task-update-modal .todo-remove",
             this.$todoData = [],
             this.$todoCompletedData = [],
             this.$todoUnCompletedData = []
@@ -55,7 +26,7 @@
         ,
         o.prototype.addTodo = function (t) {
             this.$todoData.push({
-                id: this.$todoData.length,
+                id: this.$todoData.length > 0 ? this.$todoData[this.$todoData.length - 1].id + 1: this.$todoData.length,
                 text: t,
                 done: !1
             }),
@@ -79,8 +50,8 @@
                 var e = this.$todoData[o];
                 // Create a button to remove the to-do item
                 var removeButton = '<button type="button" class="btn btn-sm btn-outline-danger float-end todo-remove" data-id="' + e.id + '" style="padding: .2rem .5rem"><i class="mdi mdi-window-close"></i> </button>';
-                1 == e.done ? this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '" checked><label class="form-check-label" for="' + e.id + '"><s>' + e.text + "</s></label>"+removeButton+"</div></li>") : (t += 1,
-                    this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '"><label class="form-check-label" for="' + e.id + '">' + e.text + "</label>"+removeButton+"</div></li>"))
+                1 == e.done ? this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '" checked><label class="form-check-label" for="' + e.id + '"><s>' + e.text + "</s></label>" + removeButton + "</div></li>") : (t += 1,
+                    this.$todoList.prepend('<li class="list-group-item border-0 ps-0"><div class="form-check mb-0"><input type="checkbox" class="form-check-input todo-done" id="' + e.id + '"><label class="form-check-label" for="' + e.id + '">' + e.text + "</label>" + removeButton + "</div></li>"))
             }
             this.$todoTotal.text(this.$todoData.length),
                 this.$todoRemaining.text(t)
@@ -115,10 +86,10 @@
                 })
         }
         ,
-        t.TodoApp = new o,
-        t.TodoApp.Constructor = o
+        t.TodoAppUpdate = new o,
+        t.TodoAppUpdate.Constructor = o
 }(window.jQuery),
     function () {
         "use strict";
-        window.jQuery.TodoApp.init()
+        window.jQuery.TodoAppUpdate.init()
     }();

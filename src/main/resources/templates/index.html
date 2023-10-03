@@ -34,347 +34,20 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
-                                    <li class="breadcrumb-item active">Kanban Board</li>
+                                    <li class="breadcrumb-item active">Quản lý công việc</li>
                                 </ol>
                             </div>
                             <h4 class="page-title">Quản lý Công việc
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#add-new-task-modal"
-                                   class="btn btn-success btn-sm ms-3">Add New</a></h4>
+                                   class="btn btn-success btn-sm ms-3">Thêm mới</a></h4>
                         </div>
                     </div>
                 </div>
                 <!-- end page title -->
 
                 <div class="row">
-                    <div class="col-12">
-                        <div class="board">
-                            <div class="tasks" data-plugin="dragula"
-                                 data-containers='["task-list-one", "task-list-two", "task-list-three", "task-list-four", "task-list-five"]'>
-                                <h5 class="mt-0 task-header">TO DO</h5>
-
-                                <div id="task-list-one" class="task-list-items">
-
-                                    <!-- Task Item -->
-                                    <div th:data-task-id="${task.id}" th:each="task: ${tasks}"
-                                         th:if="${task.state == state.TODO}" class="card mb-0">
-                                        <div class="card-body p-3">
-                                            <!--                                                    <small class="float-end text-muted" th:text="${task.dueDate.toString()}"></small>-->
-                                            <small class="float-end text-muted"
-                                                   th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                                            <span class="badge"
-                                                  th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                                                  th:text="${task.priority.getDisplayName()}"></span>
-                                            <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
-                                                   class="text-body" th:text="${task.title}"></a>
-                                            </h5>
-
-                                            <p class="mb-0">
-                                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                                                <span class="text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
-                                                        </span>
-                                            </p>
-
-                                            <div class="dropdown float-end">
-                                                <a href="#" class="dropdown-toggle text-muted arrow-none"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="mdi mdi-dots-vertical font-18"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-pencil me-1"></i>Edit</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-delete me-1"></i>Delete</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-exit-to-app me-1"></i>Leave</a>
-                                                </div>
-                                            </div>
-
-                                            <!--                                                        <span class="align-middle" th:each="person: ${task.users}" th:text="${person.name}"></span>-->
-                                            </p>
-                                            <p class="mb-0">
-                                                <img th:each="person: ${task.users}"
-                                                     th:src="@{/images/users/__${person.avatar}__}"
-                                                     th:title="${person.name}"
-                                                     th:alt="${person.avatar}" class="avatar-xs rounded-circle me-1">
-                                        </div> <!-- end card-body -->
-                                    </div>
-
-                                </div> <!-- end company-list-1-->
-                            </div>
-
-                            <div class="tasks">
-                                <h5 class="mt-0 task-header text-uppercase">In Progress (2)</h5>
-
-                                <div id="task-list-two" class="task-list-items">
-
-                                    <!-- Task Item -->
-                                    <div th:data-task-id="${task.id}" th:each="task: ${tasks}"
-                                         th:if="${task.state == state.IN_PROGRESS}"
-                                         class="card mb-0">
-                                        <div class="card-body p-3">
-                                            <small class="float-end text-muted"
-                                                   th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                                            <span class="badge"
-                                                  th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                                                  th:text="${task.priority.getDisplayName()}"></span>
-                                            <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
-                                                   class="text-body" th:text="${task.title}"></a>
-                                            </h5>
-
-                                            <p class="mb-0">
-                                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                                                <span class="text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
-                                                        </span>
-                                            </p>
-
-                                            <div class="dropdown float-end">
-                                                <a href="#" class="dropdown-toggle text-muted arrow-none"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="mdi mdi-dots-vertical font-18"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-pencil me-1"></i>Edit</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-delete me-1"></i>Delete</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-exit-to-app me-1"></i>Leave</a>
-                                                </div>
-                                            </div>
-
-                                            <!--                                            <span class="align-middle">Robert Carlile</span>-->
-                                            </p>
-                                            <p class="mb-0">
-                                                <img th:each="person: ${task.users}"
-                                                     th:src="@{/images/users/__${person.avatar}__}"
-                                                     th:title="${person.name}"
-                                                     th:alt="${person.avatar}" class="avatar-xs rounded-circle me-1">
-                                        </div> <!-- end card-body -->
-                                    </div>
-                                    <!-- Task Item End -->
-
-                                </div> <!-- end company-list-2-->
-                            </div>
-
-
-                            <div class="tasks">
-                                <h5 class="mt-0 task-header text-uppercase">Review</h5>
-                                <div id="task-list-three" class="task-list-items">
-
-                                    <!-- Task Item -->
-                                    <div th:data-task-id="${task.id}" th:each="task: ${tasks}"
-                                         th:if="${task.state == state.REVIEW}"
-                                         class="card mb-0">
-                                        <div class="card-body p-3">
-                                            <small class="float-end text-muted"
-                                                   th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                                            <span class="badge"
-                                                  th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                                                  th:text="${task.priority.getDisplayName()}"></span>
-                                            <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
-                                                   class="text-body" th:text="${task.title}"></a>
-                                            </h5>
-
-                                            <p class="mb-0">
-                                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                                                <span class="text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
-                                                        </span>
-                                            </p>
-
-                                            <div class="dropdown float-end">
-                                                <a href="#" class="dropdown-toggle text-muted arrow-none"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="mdi mdi-dots-vertical font-18"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-pencil me-1"></i>Edit</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-delete me-1"></i>Delete</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-exit-to-app me-1"></i>Leave</a>
-                                                </div>
-                                            </div>
-
-                                            <!--                                            <span class="align-middle">Robert Carlile</span>-->
-                                            </p>
-                                            <p class="mb-0">
-                                                <img th:each="person: ${task.users}"
-                                                     th:src="@{/images/users/__${person.avatar}__}"
-                                                     th:title="${person.name}"
-                                                     th:alt="${person.avatar}" class="avatar-xs rounded-circle me-1">
-                                        </div> <!-- end card-body -->
-                                    </div>
-                                    <!-- Task Item End -->
-
-                                </div> <!-- end company-list-3-->
-                            </div>
-
-                            <div class="tasks">
-                                <h5 class="mt-0 task-header text-uppercase">Done (1)</h5>
-                                <div id="task-list-four" class="task-list-items">
-
-                                    <!-- Task Item -->
-                                    <div th:data-task-id="${task.id}" th:each="task: ${tasks}"
-                                         th:if="${task.state == state.DONE}" class="card mb-0">
-                                        <div class="card-body p-3">
-                                            <small class="float-end text-muted"
-                                                   th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                                            <span class="badge"
-                                                  th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                                                  th:text="${task.priority.getDisplayName()}"></span>
-                                            <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
-                                                   class="text-body" th:text="${task.title}"></a>
-                                            </h5>
-
-                                            <p class="mb-0">
-                                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                                                <span class="text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
-                                                        </span>
-                                            </p>
-
-                                            <div class="dropdown float-end">
-                                                <a href="#" class="dropdown-toggle text-muted arrow-none"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="mdi mdi-dots-vertical font-18"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-pencil me-1"></i>Edit</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-delete me-1"></i>Delete</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-exit-to-app me-1"></i>Leave</a>
-                                                </div>
-                                            </div>
-
-                                            <!--                                            <span class="align-middle">Robert Carlile</span>-->
-                                            </p>
-                                            <p class="mb-0">
-                                                <img th:each="person: ${task.users}"
-                                                     th:src="@{/images/users/__${person.avatar}__}"
-                                                     th:title="${person.name}"
-                                                     th:alt="${person.avatar}" class="avatar-xs rounded-circle me-1">
-                                        </div> <!-- end card-body -->
-                                    </div>
-                                    <!-- Task Item End -->
-
-                                </div> <!-- end company-list-4-->
-                            </div>
-                            <div class="tasks">
-                                <h5 class="mt-0 task-header text-uppercase">SAVED (1)</h5>
-                                <div id="task-list-five" class="task-list-items">
-
-                                    <!-- Task Item -->
-                                    <div th:data-task-id="${task.id}" th:each="task: ${tasks}"
-                                         th:if="${task.state == state.SAVED}"
-                                         class="card mb-0">
-                                        <div class="card-body p-3">
-                                            <small class="float-end text-muted"
-                                                   th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                                            <span class="badge"
-                                                  th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                                                  th:text="${task.priority.getDisplayName()}"></span>
-                                            <h5 class="mt-2 mb-2">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#task-detail-modal"
-                                                   class="text-body" th:text="${task.title}"></a>
-                                            </h5>
-
-                                            <p class="mb-0">
-                                                        <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                                                <span class="text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
-                                                        </span>
-                                            </p>
-
-                                            <div class="dropdown float-end">
-                                                <a href="#" class="dropdown-toggle text-muted arrow-none"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="mdi mdi-dots-vertical font-18"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-pencil me-1"></i>Edit</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-delete me-1"></i>Delete</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item"><i
-                                                            class="mdi mdi-exit-to-app me-1"></i>Leave</a>
-                                                </div>
-                                            </div>
-
-                                            <!--                                            <span class="align-middle">Robert Carlile</span>-->
-                                            </p>
-                                            <p class="mb-0">
-                                                <img th:each="person: ${task.users}"
-                                                     th:src="@{/images/users/__${person.avatar}__}"
-                                                     th:title="${person.name}"
-                                                     th:alt="${person.avatar}" class="avatar-xs rounded-circle me-1">
-                                        </div> <!-- end card-body -->
-                                    </div>
-                                    <!-- Task Item End -->
-
-                                </div> <!-- end company-list-4-->
-                            </div>
-
-                        </div> <!-- end .board-->
+                    <div class="col-12" id="load-board">
+<!--                    board with columns will rendered here-->
                     </div> <!-- end col -->
                 </div>
                 <!-- end row-->
@@ -404,116 +77,9 @@
 </div>
 <!-- /End-bar -->
 <!--  Add new task modal -->
-<div class="modal fade task-modal-content" id="add-new-task-modal" tabindex="-1" role="dialog"
-     aria-labelledby="NewTaskModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="NewTaskModalLabel">Tạo mới Công việc</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="p-2 needs-validation" novalidate>
-                    <!--                            <div class="mb-3">-->
-                    <!--                                <label class="form-label">Project</label>-->
-                    <!--                                <select class="form-select form-control-light">-->
-                    <!--                                    <option>Select</option>-->
-                    <!--                                    <option>Hyper - Admin Dashboard</option>-->
-                    <!--                                    <option>CRM - Design & Development</option>-->
-                    <!--                                    <option>iOS - App Design</option>-->
-                    <!--                                </select>-->
-                    <!--                            </div>-->
+<div th:replace="_task-create :: _task-create"></div>
+<!-- /.modal -->
 
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="mb-3">
-                                <label for="task-title" class="form-label">Tiêu đề</label>
-                                <input type="text" name="title" class="form-control form-control-light" id="task-title"
-                                       placeholder="Nhập tiêu đề" required>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="task-priority2" class="form-label">Độ ưu tiên</label>
-                                <select name="priority" class="form-select form-control-light" id="task-priority2"
-                                        required>
-                                    <option th:value="${priority.LOW}"
-                                            th:text="${priority.LOW.getDisplayName()}"></option>
-                                    <option th:value="${priority.MEDIUM}"
-                                            th:text="${priority.MEDIUM.getDisplayName()}"></option>
-                                    <option th:value="${priority.HIGH}"
-                                            th:text="${priority.HIGH.getDisplayName()}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="editor" class="form-label">Mô tả</label>
-                        <textarea class="form-control form-control-light" id="editor" name="description"
-                                  rows="5" required></textarea>
-                        <div class="invalid-feedback">
-                            Vui lòng thêm mô tả công việc.
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="task-title" class="form-label">Thành viên tham gia</label>
-                                <select class="select2 form-select select2-multiple" data-toggle="select2"
-                                        multiple="multiple" data-placeholder="Chọn thành viên ..." required>
-                                    <optgroup label="Danh sách Thành viên">
-                                        <option th:each="user: ${users}" th:value="${user.id}"
-                                                th:text="${user.name}"></option>
-                                    </optgroup>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Chọn Thành viên tham gia.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Ngày hết hạn</label>
-                                <input type="text" name="dueDate" class="form-control form-control-light"
-                                       id="birthdatepicker"
-                                       data-toggle="date-picker" data-single-date-picker="true" required>
-                                <div class="invalid-feedback">
-                                    Chọn ngày hết hạn.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="task-title" class="form-label">Thành viên tham gia</label>
-                                <select class="form-select" name="state" required>
-                                    <option th:each="st: ${state.values()}" th:value="${st}"
-                                            th:text="${st.getDisplayName()}"></option>
-                                </select>
-                                <div class="invalid-feedback">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="text-end">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Huỷ</button>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                    </div>
-                </form>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 <!--  Task details modal -->
 <div class="modal fade task-modal-content" id="task-detail-modal" tabindex="-1" role="dialog"
@@ -525,6 +91,19 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!--  Task update modal -->
+<div class="modal fade task-modal-content" id="task-update-modal" tabindex="-1" role="dialog"
+     aria-labelledby="TaskUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <!--    Task detail here-->
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <div th:replace="shared/_script :: script"></div>
 <script th:src="@{/js/app/task.js}"></script>
 </body>

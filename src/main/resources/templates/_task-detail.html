@@ -1,7 +1,15 @@
 <div class="modal-header" th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}">
-    <h4 class="modal-title" id="TaskDetailModalLabel" th:text="${task.title}">
+    <!--Cách 1: để chèn thẻ html vào bên trong th:text-->
+    <!--    <h4 class="modal-title" id="TaskDetailModalLabel">-->
+    <!--        <span th:text="${task.title}" th:remove="tag"></span>-->
+    <!--        <span class="badge ms-2" th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')" th:text="${task.priority.getDisplayName()}"></span>-->
+    <!--    </h4>-->
+
+    <!--    Cách 2: -->
+    <h4 class="modal-title" id="TaskDetailModalLabel" th:inline="text">
+        [[${task.title}]]
         <span class="badge ms-2"
-              th:classappend="${task.priority==priority.LOW}?'bg-success':${task.priority==priority.MEDIUM}?'bg-warning':'bg-danger'"
+              th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
               th:text="${task.priority.getDisplayName()}"></span>
     </h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -12,12 +20,68 @@
         <h5 class="mt-0">Mô tả:</h5>
         <p class="text-muted mb-4" th:text="${task.description}">
         </p>
+        <div class="mb-3" th:if="${task.subtasks.size()>0}">
+            <div class="col-xl-12">
+                <!-- Todo-->
+                <div class="card">
+                    <div class="card-body px-0">
+                        <h4 class="header-title mb-3">Việc cần làm</h4>
 
+                        <div class="todoapp">
+                            <div class="row">
+                                <div class="col" th:with="notDone=${task.subtasks.size() - task.isDone}">
+                                    <h5 id="todo-message" th:if="${notDone>0}">
+                                        <span id="todo-remaining"></span>
+                                         Còn [[${notDone}]] /
+                                        <span id="todo-total"></span>[[${task.subtasks.size()}]] chưa hoàn thành
+                                    </h5>
+                                    <h5 id="todo-message-notDone" th:if="${notDone==0}">
+                                        <span id="todo-remaining-notDone"></span>
+                                         Tất cả đã hoàn thành
+                                    </h5>
+                                </div>
+                                <div class="col-auto">
+                                    <!--                                                <a href="" class="float-end btn btn-light btn-sm" id="btn-archive">Archive</a>-->
+                                </div>
+                            </div>
+
+                            <div style="max-height: 314px;" data-simplebar="">
+                                <ul class="list-group list-group-flush todo-list" id="todo-list">
+                                    <li th:each="subtask: ${task.subtasks}" class="list-group-item border-0 ps-0">
+                                        <div class="form-check mb-0">
+                                            <input type="checkbox" class="form-check-input todo-done"
+                                                   th:id="${subtask.id}" th:checked="${subtask.done}" disabled readonly>
+                                            <label class="form-check-label" th:for="${subtask.id}" style="opacity: 1">
+                                                <span th:text="${subtask.text}" th:if="${!subtask.done}"
+                                                      th:remove="tag"></span>
+                                                <s th:text="${subtask.text}" th:if="${subtask.done}"></s></label></div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!--                            <div class="row">-->
+                            <!--                                <div class="col">-->
+                            <!--                                    <input type="text" id="todo-input-text"-->
+                            <!--                                           name="todo-input-text"-->
+                            <!--                                           class="form-control" placeholder="Thêm mới Việc cần làm" required="">-->
+                            <!--                                    <div class="invalid-feedback">-->
+                            <!--                                        Vui lòng nhập tiêu đề Việc cần làm-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                        </div> <!-- end .todoapp-->
+                    </div> <!-- end card-body -->
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="mb-4">
-                    <h5>Ngảy tạo</h5>
-                    <p>17 March 2018 <small class="text-muted">1:00 PM</small></p>
+                    <h5>Ngày tạo</h5>
+                    <p>
+                        <span th:text="${#dates.format(task.createdOn, 'dd MMMM yyyy')}"></span>,
+                        <small class="text-muted" th:text="${#dates.format(task.createdOn, 'hh:mm a')}"></small>
+                    </p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -28,7 +92,7 @@
                     <!--                            </p>-->
                     <p>
                         <span th:text="${#dates.format(task.dueDate, 'dd MMMM yyyy')}"></span>,
-                        <small class="text-muted" th:text="${#dates.format(task.dueDate, 'h:mm aa')}"></small>
+                        <small class="text-muted" th:text="${#dates.format(task.dueDate, 'hh:mm a')}"></small>
                     </p>
                 </div>
             </div>
