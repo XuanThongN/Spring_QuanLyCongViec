@@ -1,5 +1,5 @@
     package com.xuanthongn.spring_quanlycongviec.entities;
-
+    import com.fasterxml.jackson.annotation.JsonIgnore;
     import com.xuanthongn.spring_quanlycongviec.common.Constant;
     import jakarta.persistence.*;
     import jakarta.validation.constraints.Min;
@@ -13,7 +13,7 @@
     import lombok.NoArgsConstructor;
     import lombok.ToString;
     import org.springframework.format.annotation.DateTimeFormat;
-
+    import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     import java.util.Collection;
     import java.util.Date;
 
@@ -23,6 +23,7 @@
     @AllArgsConstructor // dùng để khai báo constructor với tất cả các properties
     @NoArgsConstructor //
     @Builder
+    @JsonIgnoreProperties({"tasks"}) // Bỏ qua thuộc tính 'tasks' khi chuyển đổi thành JSON
     public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
