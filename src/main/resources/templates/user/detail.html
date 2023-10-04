@@ -36,7 +36,9 @@
     </style>
 </head>
 
-<body>
+<body class="loading"
+      data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'
+      th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}, state = ${T(com.xuanthongn.spring_quanlycongviec.common.TaskState)}">
 <div class="wrapper">
     <div th:replace="shared/_left-side :: leftside-menu"></div>
     <div class="content-page">
@@ -87,8 +89,29 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <button id="backToListButton" class="btn btn-primary">Trở lại danh sách</button>
+
+            </div>
         </div>
+        <!-- Footer Start -->
+        <footer th:replace="shared/_footer :: footer"></footer>
+        <div class="rightbar-overlay"></div>
+        <!-- end Footer -->
     </div>
 </div>
+<div th:replace="shared/_script :: script"></div>
+<script th:src="@{/js/app/task.js}"></script>
 </body>
+<script>
+    // Lấy tham chiếu đến nút "Trở lại danh sách" bằng ID
+    const backButton = document.getElementById("backToListButton");
+
+    // Gán sự kiện click cho nút
+    backButton.addEventListener("click", function () {
+        // Điều hướng người dùng đến trang danh sách (thay đổi đường dẫn tùy thuộc vào trang bạn muốn)
+        window.history.back();
+    });
+</script>
+
 </html>

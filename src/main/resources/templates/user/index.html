@@ -9,9 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
             crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-            crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- jQuery Modal -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -87,7 +84,9 @@
     }
 
 </style>
-<body>
+<body class="loading"
+      data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'
+      th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}, state = ${T(com.xuanthongn.spring_quanlycongviec.common.TaskState)}">
 <div class="wrapper">
     <div th:replace="shared/_left-side :: leftside-menu">
     </div>
@@ -207,6 +206,10 @@
             </div>
 
         </div>
+        <!-- Footer Start -->
+        <footer th:replace="shared/_footer :: footer"></footer>
+        <div class="rightbar-overlay"></div>
+        <!-- end Footer -->
     </div>
 </div>
 </body>
@@ -233,7 +236,7 @@
         var isSearching = false;
 
         function reloadUserList() {
-            $.getJSON('http://localhost:8083/userList', function (json) {
+            $.getJSON('/userList', function (json) {
                 userList = json; // Cập nhật danh sách người dùng gốc
                 loadUserList(currentPage, $('#searchName').val().trim()); // Tải lại danh sách người dùng với trang và tìm kiếm hiện tại
             });
@@ -369,7 +372,7 @@
             $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
-                url: "http://localhost:8083/user/save",
+                url: "/user/save",
                 data: JSON.stringify(newUser),
                 cache: false,
                 success: function (result) {
@@ -417,7 +420,7 @@
 
                 $.ajax({
                     type: "DELETE",
-                    url: "http://localhost:8083/user/delete/" + id,
+                    url: "/user/delete/" + id,
                     cache: false,
                     success: function () {
                         // Hiển thị thông báo SweetAlert2 sau khi xoá thành công
@@ -494,7 +497,7 @@
                 $.ajax({
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
-                    url: "http://localhost:8083/user/save",
+                    url: "/user/save",
                     data: JSON.stringify(updatedUser),
                     cache: false,
                     success: function () {
@@ -515,11 +518,13 @@
             });
         });
         // Initial load
-        $.getJSON('http://localhost:8083/userList', function (json) {
+        $.getJSON('/userList', function (json) {
             userList = json; // Lưu danh sách người dùng gốc
             loadUserList(currentPage, "");
         });
 
     });
 </script>
+<div th:replace="shared/_script :: script"></div>
+<script th:src="@{/js/app/task.js}"></script>
 </html>
