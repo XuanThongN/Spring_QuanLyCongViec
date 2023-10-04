@@ -4,6 +4,7 @@ import com.xuanthongn.spring_quanlycongviec.dto.task.CreateTaskDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.TaskDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.UpdateTaskDto;
 import com.xuanthongn.spring_quanlycongviec.entities.Task;
+import com.xuanthongn.spring_quanlycongviec.entities.User;
 import com.xuanthongn.spring_quanlycongviec.repository.TaskRepository;
 import com.xuanthongn.spring_quanlycongviec.services.TaskService;
 import com.xuanthongn.spring_quanlycongviec.services.UserService;
@@ -29,7 +30,13 @@ public class TaskController {
     private TaskRepository taskRepository;
 
     @RequestMapping("")
-    public String Index() {
+    public String Index(Model model) {
+        try {
+            model.addAttribute("users", userService.findAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "index";
     }
 
