@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="UpdateTaskModalLabel">Cập nhật Công việc</h4>
+    <h4 class="modal-title" id="UpdateTaskModalLabel" th:text="#{task.subtask.update}">Cập nhật Công việc</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body"
@@ -82,7 +82,7 @@
                                 <div class="col">
                                     <input form="todo-update-form" type="text" id="todo-input-text"
                                            name="todo-input-text"
-                                           class="form-control" placeholder="Thêm mới Việc cần làm" required="">
+                                           class="form-control" th:placeholder="#{twen-ty}" required="">
                                     <div class="invalid-feedback">
                                         Vui lòng nhập tiêu đề Việc cần làm
                                     </div>
