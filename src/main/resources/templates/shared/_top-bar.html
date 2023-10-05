@@ -7,41 +7,29 @@
             </a>
             <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
                 <form class="p-3">
-                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                    <input type="text" class="form-control" th:text="#{search}" placeholder="Search ..." aria-label="Recipient's username">
                 </form>
             </div>
         </li>
         <li class="dropdown notification-list topbar-dropdown">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-               aria-haspopup="false" aria-expanded="false">
-                <img th:src="@{images/flags/us.jpg}" alt="user-image" class="me-0 me-sm-1" height="12">
-                <span class="align-middle d-none d-sm-inline-block">English</span> <i
+               aria-haspopup="false" aria-expanded="false" th:with="fg=#{flag}">
+                <img  th:src="@{/images/flags/__${fg}__}" alt="user-image" class="me-0 me-sm-1" height="12">
+                <span class="align-middle d-none d-sm-inline-block" th:text="#{language}" >Vietnamese</span> <i
                     class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img th:src="@{images/flags/germany.jpg}" }alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">German</span>
+                <a href="javascript:void(0);" class="dropdown-item notify-item" th:text="#{switch-en}" onclick="window.location.href='?localeData=en'">
+                    <img th:src="@{/images/flags/us.jpg}" alt="user-image" class="me-1" height="12"> <span
+                        class="align-middle">English</span>
                 </a>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img th:src="@{images/flags/italy.jpg}" }alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">Italian</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img th:src="@{images/flags/spain.jpg}" }alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">Spanish</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <img th:src="@{images/flags/russia.jpg}" }alt="user-image" class="me-1" height="12"> <span
-                        class="align-middle">Russian</span>
+                <a href="javascript:void(0);" class="dropdown-item notify-item" th:text="#{switch-vi}" onclick="window.location.href='?localeData=vi'" >
+                    <img th:src="@{/images/flags/vi.jpg}" alt="user-image" class="me-1" height="12"> <span
+                        class="align-middle">VietNam</span>
                 </a>
 
             </div>
@@ -259,7 +247,7 @@
             <div class="input-group">
                 <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
                 <span class="mdi mdi-magnify search-icon"></span>
-                <button class="input-group-text btn-primary" type="submit">Search</button>
+                <button class="input-group-text btn-primary" type="submit" th:text="#{search}">Search</button>
             </div>
         </form>
 
