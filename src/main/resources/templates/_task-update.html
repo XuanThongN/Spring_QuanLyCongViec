@@ -29,9 +29,12 @@
                     <label for="task-priority2" class="form-label" th:text="#{fif-teen}">Độ ưu tiên</label>
                     <select name="priority" class="form-select form-control-light" id="task-priority2"
                             required>
-                        <option th:each="sub_priority:${priority.values()}" th:value="${sub_priority}"
-                                th:text="${sub_priority.getDisplayName()}"
-                                th:selected="${sub_priority==task.priority}"></option>
+                        <option th:value="${priority.LOW}"
+                                th:text="#{'task.prority.'+${priority.LOW}}"></option>
+                        <option th:value="${priority.MEDIUM}"
+                                th:text="#{'task.prority.'+${priority.MEDIUM}}"></option>
+                        <option th:value="${priority.HIGH}"
+                                th:text="#{'task.prority.'+${priority.HIGH}}"></option>
                     </select>
                 </div>
             </div>

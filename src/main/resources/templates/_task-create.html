@@ -139,8 +139,16 @@
                             <div class="mb-3">
                                 <label for="task-title" class="form-label" th:text="#{status}">Trạng thái</label>
                                 <select class="form-select" name="state" required>
-                                    <option th:each="st: ${state.values()}" th:value="${st}"
-                                            th:text="${st.getDisplayName()}"></option>
+                                    <option th:value="${state.TODO}"
+                                            th:text="#{'task.state.'+${state.TODO}}"></option>
+                                    <option th:value="${state.IN_PROGRESS}"
+                                            th:text="#{'task.state.'+${state.IN_PROGRESS}}"></option>
+                                    <option th:value="${state.DONE}"
+                                            th:text="#{'task.state.'+${state.DONE}}"></option>
+                                    <option th:value="${state.REVIEW}"
+                                            th:text="#{'task.state.'+${state.REVIEW}}"></option>
+                                    <option th:value="${state.SAVED}"
+                                            th:text="#{'task.state.'+${state.SAVED}}"></option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Chọn trạng thái
