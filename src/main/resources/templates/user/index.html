@@ -146,15 +146,14 @@
                                 <div class='form-group'>
                                     <label for='roles' class=' mt-2'>Quyền hạn:</label>
                                     <select id='roles' name='roles' class='form-control'>
-                                        <option value='admin'>Admin</option>
-                                        <option value='user'>User</option>
-                                        <option value='guest'>Guest</option>
+                                        <option value='Admin'>Admin</option>
+                                        <option value='User'>User</option>
                                         <!-- Thêm các tùy chọn khác nếu cần -->
                                     </select>
                                 </div>
                                 <div class='form-group'>
                                     <label for='avatar' class='mt-2'>Ảnh đại diện:</label>
-                                    <input type='file' id='avatar' name='avatar' class='form-control-file d-block'>
+                                    <input type='file' id='avatar' name='avatar' class='form-control d-block'>
                                 </div>
                             </div>
                             <div class='modal-footer' style="padding:0;">
@@ -165,6 +164,54 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                 aria-hidden="true"
+                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height:675px;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="editModalLabel">Chỉnh sửa thông tin người dùng</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group mb-2">
+                                <label for="editName">Tên người dùng</label>
+                                <input type="text" class="form-control" id="editName">
+                            </div>
+                            <div class="form-group mb-2" >
+                                <label for="editBirthday">Ngày sinh</label>
+                                <input type="date" class="form-control" id="editBirthday">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="editUsername">Tên đăng nhập</label>
+                                <input type="text" class="form-control" id="editUsername">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="editPassword">Mật khẩu</label>
+                                <input type="password" class="form-control" id="editPassword">
+                            </div>
+                            <div class='form-group mb-2'>
+                                <label for='roles' >Quyền hạn:</label>
+                                <select id='editRoles' name='roles' class='form-control'>
+                                    <option value='Admin'>Admin</option>
+                                    <option value='User'>User</option>
+                                    <!-- Thêm các tùy chọn khác nếu cần -->
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <label for="editAvatar">Ảnh đại diện</label>
+                                <input type="text" class="form-control" id="editAvatar">
+                            </div>
+                            <!-- Thêm các trường chỉnh sửa khác -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-success" id="saveChanges">Lưu thay đổi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <h2 class="text-center text-dark mt-3">Quản lý thông tin người dùng</h2>
             <div class="row mt-3 mb-3">
                 <div class="col-md-8">
@@ -236,7 +283,7 @@
         var isSearching = false;
 
         function reloadUserList() {
-            $.getJSON('/userList', function (json) {
+            $.getJSON('/user/userList', function (json) {
                 userList = json; // Cập nhật danh sách người dùng gốc
                 loadUserList(currentPage, $('#searchName').val().trim()); // Tải lại danh sách người dùng với trang và tìm kiếm hiện tại
             });
@@ -276,7 +323,7 @@
                 tr.push('<td>' + usersToDisplay[i].name + '</td>');
                 tr.push('<td>' + usersToDisplay[i].birthday + '</td>');
                 tr.push('<td>' + usersToDisplay[i].username + '</td>');
-                tr.push('<td>' + usersToDisplay[i].password + '</td>');
+                tr.push('<td>' + "******" + '</td>');
                 tr.push('<td>' + usersToDisplay[i].roles + '</td>');
                 tr.push('<td>' + usersToDisplay[i].avatar + '</td>');
                 tr.push('<td class="btn-group"><button class="edit btn btn-sm btn-primary">Sửa</button>&nbsp;&nbsp;<button class="detail text-light btn btn-sm btn-warning">Chi tiết</button>&nbsp;&nbsp;<button class="delete btn btn-sm btn-danger" id="' + usersToDisplay[i].id + '">Xoá</button></td>');
@@ -323,7 +370,6 @@
 
             $('#paginationInfo').html(paginationHtml);
         }
-
 
 
 // Next button click
@@ -446,44 +492,39 @@
                 });
             });
         });
-
-
         // Edit user
         $(document).delegate('.edit', 'click', function () {
             var parent = $(this).parent().parent();
             var id = parent.children("td:nth-child(1)");
-            var name = parent.children("td:nth-child(2)");
-            var birthday = parent.children("td:nth-child(3)");
-            var username = parent.children("td:nth-child(4)");
-            var password = parent.children("td:nth-child(5)");
-            var roles = parent.children("td:nth-child(6)");
-            var avatar = parent.children("td:nth-child(7)");
-            var buttons = parent.children("td:nth-child(8)");
+            var name = parent.children("td:nth-child(2)").text();
+            var birthday = parent.children("td:nth-child(3)").text();
+            var username = parent.children("td:nth-child(4)").text();
+            var password = parent.children("td:nth-child(5)").text();
+            var roles = parent.children("td:nth-child(6)").text();
+            var avatar = parent.children("td:nth-child(7)").text();
 
-            var originalName = name.text();
-            var originalBirthday = birthday.text();
-            var originalUsername = username.text();
-            var originalPassword = password.text();
-            var originalRoles = roles.text();
-            var originalAvatar = avatar.text();
+            // Điền thông tin người dùng vào modal
+            $('#editName').val(name);
+            $('#editBirthday').val(birthday);
+            $('#editUsername').val(username);
+            $('#editPassword').val(password);
+            $('#editRoles').val(roles);
+            $('#editAvatar').val(avatar);
+            // Lấy vai trò của người dùng từ row và chuyển thành mảng các vai trò
 
-            name.html("<input type='text' id='txtName' value='" + originalName + "' class='form-control'/>");
-            birthday.html("<input type='date' id='txtBirthday' value='" + originalBirthday + "' class='form-control'/>");
-            username.html("<input type='text' id='txtUsername' value='" + originalUsername + "' class='form-control'/>");
-            password.html("<input type='text' id='txtPassword' value='" + originalPassword + "' class='form-control'/>");
-            roles.html("<input type='text' id='txtRoles' value='" + originalRoles + "' class='form-control'/>");
-            avatar.html("<input type='text' id='txtAvatar' value='" + originalAvatar + "' class='form-control'/>");
-            buttons.html("<button id='save' class='btn btn-sm btn-success'>Lưu</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Xoá</button>");
+            $('#editModal').modal('show');
 
-            // Save button click
-            $('#save').click(function () {
-                var editedName = name.children("input[type=text]").val();
-                var editedBirthday = birthday.children("input[type=date]").val();
-                var editedUsername = username.children("input[type=text]").val();
-                var editedPassword = password.children("input[type=text]").val();
-                var editedRoles = roles.children("input[type=text]").val();
-                var editedAvatar = avatar.children("input[type=text]").val();
+            // Lưu thay đổi khi bấm nút "Lưu thay đổi"
+            $('#saveChanges').click(function () {
+                // Lấy các giá trị đã chỉnh sửa từ modal
+                var editedName = $('#editName').val();
+                var editedBirthday = $('#editBirthday').val();
+                var editedUsername = $('#editUsername').val();
+                var editedPassword = $('#editPassword').val();
+                var editedRoles = $('#editRoles').val();
+                var editedAvatar = $('#editAvatar').val();
 
+                // Tạo một đối tượng chứa dữ liệu đã chỉnh sửa
                 var updatedUser = {
                     'id': id.html(),
                     'name': editedName,
@@ -494,31 +535,108 @@
                     'avatar': editedAvatar
                 };
 
+                // Gửi yêu cầu POST đến máy chủ
                 $.ajax({
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     url: "/user/save",
                     data: JSON.stringify(updatedUser),
                     cache: false,
-                    success: function () {
-                        name.html(editedName);
-                        birthday.html(editedBirthday);
-                        username.html(editedUsername);
-                        password.html(editedPassword);
-                        roles.html(editedRoles);
-                        avatar.html(editedAvatar);
-                        buttons.html("<button class='edit btn btn-sm btn-primary'>Sửa</button>&nbsp;&nbsp;<button class=\"detail text-light btn btn-sm btn-warning\">Chi tiết</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Xoá</button>");
+                    success: function (result) {
+                        // Hiển thị thông báo SweetAlert2
+                        reloadUserList();
+                        // window.location.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: 'User added successfully',
+                        }).then(function () {
+                            // Đóng modal
+                            $('#editModal').modal('hide');
+                            // Xóa nội dung trong input fields
+                        });
                     },
                     error: function () {
-                        $('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error updating record').fadeIn().fadeOut(4000, function () {
+                        $('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Lỗi khi cập nhật dữ liệu').fadeIn().fadeOut(4000, function () {
                             $(this).remove();
                         });
                     }
                 });
             });
         });
+
+
+        // // Edit user
+        // $(document).delegate('.edit', 'click', function () {
+        //     var parent = $(this).parent().parent();
+        //     var id = parent.children("td:nth-child(1)");
+        //     var name = parent.children("td:nth-child(2)");
+        //     var birthday = parent.children("td:nth-child(3)");
+        //     var username = parent.children("td:nth-child(4)");
+        //     var password = parent.children("td:nth-child(5)");
+        //     var roles = parent.children("td:nth-child(6)");
+        //     var avatar = parent.children("td:nth-child(7)");
+        //     var buttons = parent.children("td:nth-child(8)");
+        //
+        //     var originalName = name.text();
+        //     var originalBirthday = birthday.text();
+        //     var originalUsername = username.text();
+        //     var originalPassword = password.text();
+        //     var originalRoles = roles.text();
+        //     var originalAvatar = avatar.text();
+        //
+        //     name.html("<input type='text' id='txtName' value='" + originalName + "' class='form-control'/>");
+        //     birthday.html("<input type='date' id='txtBirthday' value='" + originalBirthday + "' class='form-control'/>");
+        //     username.html("<input type='text' id='txtUsername' value='" + originalUsername + "' class='form-control'/>");
+        //     password.html("<input type='text' id='txtPassword' value='" + originalPassword + "' class='form-control'/>");
+        //     roles.html("<input type='text' id='txtRoles' value='" + originalRoles + "' class='form-control'/>");
+        //     avatar.html("<input type='text' id='txtAvatar' value='" + originalAvatar + "' class='form-control'/>");
+        //     buttons.html("<button id='save' class='btn btn-sm btn-success'>Lưu</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Xoá</button>");
+        //
+        //     // Save button click
+        //     $('#save').click(function () {
+        //         var editedName = name.children("input[type=text]").val();
+        //         var editedBirthday = birthday.children("input[type=date]").val();
+        //         var editedUsername = username.children("input[type=text]").val();
+        //         var editedPassword = password.children("input[type=text]").val();
+        //         var editedRoles = roles.children("input[type=text]").val();
+        //         var editedAvatar = avatar.children("input[type=text]").val();
+        //
+        //         var updatedUser = {
+        //             'id': id.html(),
+        //             'name': editedName,
+        //             'birthday': editedBirthday,
+        //             'username': editedUsername,
+        //             'password': editedPassword,
+        //             'roles': editedRoles,
+        //             'avatar': editedAvatar
+        //         };
+        //
+        //         $.ajax({
+        //             type: "POST",
+        //             contentType: "application/json; charset=utf-8",
+        //             url: "/user/save",
+        //             data: JSON.stringify(updatedUser),
+        //             cache: false,
+        //             success: function () {
+        //                 name.html(editedName);
+        //                 birthday.html(editedBirthday);
+        //                 username.html(editedUsername);
+        //                 password.html(editedPassword);
+        //                 roles.html(editedRoles);
+        //                 avatar.html(editedAvatar);
+        //                 buttons.html("<button class='edit btn btn-sm btn-primary'>Sửa</button>&nbsp;&nbsp;<button class=\"detail text-light btn btn-sm btn-warning\">Chi tiết</button>&nbsp;&nbsp;<button class='delete btn btn-sm btn-danger' id='" + id.html() + "'>Xoá</button>");
+        //             },
+        //             error: function () {
+        //                 $('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error updating record').fadeIn().fadeOut(4000, function () {
+        //                     $(this).remove();
+        //                 });
+        //             }
+        //         });
+        //     });
+        // });
         // Initial load
-        $.getJSON('/userList', function (json) {
+        $.getJSON('/user/userList', function (json) {
             userList = json; // Lưu danh sách người dùng gốc
             loadUserList(currentPage, "");
         });
