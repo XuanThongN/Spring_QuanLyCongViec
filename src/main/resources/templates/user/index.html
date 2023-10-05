@@ -236,7 +236,7 @@
         var isSearching = false;
 
         function reloadUserList() {
-            $.getJSON('/userList', function (json) {
+            $.getJSON('user/userList', function (json) {
                 userList = json; // Cập nhật danh sách người dùng gốc
                 loadUserList(currentPage, $('#searchName').val().trim()); // Tải lại danh sách người dùng với trang và tìm kiếm hiện tại
             });
@@ -518,7 +518,7 @@
             });
         });
         // Initial load
-        $.getJSON('/userList', function (json) {
+        $.getJSON('/user/userList', function (json) {
             userList = json; // Lưu danh sách người dùng gốc
             loadUserList(currentPage, "");
         });

@@ -42,7 +42,9 @@ String[] staticResources = {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf().disable()
 				.authorizeHttpRequests()
-				.requestMatchers("/hello").permitAll()
+				.requestMatchers("/user/list").hasAnyAuthority("Admin")
+				.requestMatchers("/Task").hasAnyAuthority("User", "Admin")
+				.requestMatchers("/meeting").hasAnyAuthority("Admin","User")
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				.anyRequest().authenticated()
 				.and()
@@ -54,7 +56,6 @@ String[] staticResources = {
 				.logoutSuccessUrl("/login") // Định hướng sau khi đăng xuất đến trang login
 				.permitAll()
 				.and()
-
 				.build();
 	}
 
