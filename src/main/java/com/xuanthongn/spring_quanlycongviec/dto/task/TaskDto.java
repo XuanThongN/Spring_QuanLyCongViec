@@ -3,6 +3,7 @@ package com.xuanthongn.spring_quanlycongviec.dto.task;
 import com.xuanthongn.spring_quanlycongviec.common.CollectionConverter;
 import com.xuanthongn.spring_quanlycongviec.common.TaskPriority;
 import com.xuanthongn.spring_quanlycongviec.common.TaskState;
+import com.xuanthongn.spring_quanlycongviec.entities.Comment;
 import com.xuanthongn.spring_quanlycongviec.entities.SubTask;
 import com.xuanthongn.spring_quanlycongviec.entities.User;
 import jakarta.persistence.*;
@@ -45,6 +46,7 @@ public class TaskDto {
     private Collection<Integer> userIds;
     private Integer isDone;
     private Instant createdOn;
+    private Collection<Comment> comments;
 
 
 }

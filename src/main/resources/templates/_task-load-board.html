@@ -12,9 +12,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                     <span class="badge"
+                    <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                    th:text="#{'task.prority.'+${task.priority}}"></span>
+                          th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -22,18 +22,20 @@
 
                     <p class="mb-0">
                             <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                iOS
-                            </span>
+                                <i class="mdi mdi-format-list-bulleted-type text-muted"></i>
+    <b th:text="${task.subtasks.size()}"></b>
+    Sub-Task
+</span>
                         <span class="text-nowrap mb-2 d-inline-block">
                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                            <b>74</b> [[#{task.comment}]]
+                            <b th:text="${task.comments.size()}"></b> [[#{task.comment}]]
                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end"
+                                                                                 th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -53,15 +55,15 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
                                     class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
                         </div>
                     </div>
 
@@ -90,9 +92,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                     <span class="badge"
+                    <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                    th:text="#{'task.prority.'+${task.priority}}"></span>
+                          th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -100,18 +102,20 @@
 
                     <p class="mb-0">
                                                         <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                       <span class="text-nowrap mb-2 d-inline-block">
+                                <i class="mdi mdi-format-list-bulleted-type text-muted"></i>
+    <b th:text="${task.subtasks.size()}"></b>
+    Sub-Task
+</span>
+                        <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> [[#{task.comment}]]
+                                                            <b th:text="${task.comments.size()}"></b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end"
+                                                                                 th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -131,15 +135,15 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
                                     class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
                         </div>
                     </div>
 
@@ -169,9 +173,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                     <span class="badge"
+                    <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                    th:text="#{'task.prority.'+${task.priority}}"></span>
+                          th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -179,18 +183,20 @@
 
                     <p class="mb-0">
                                                         <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                       <span class="text-nowrap mb-2 d-inline-block">
+                                <i class="mdi mdi-format-list-bulleted-type text-muted"></i>
+    <b th:text="${task.subtasks.size()}"></b>
+    Sub-Task
+</span>
+                        <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> [[#{task.comment}]]
+                                                            <b th:text="${task.comments.size()}"></b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end"
+                                                                                 th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -210,15 +216,15 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
                                     class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
                         </div>
                     </div>
 
@@ -248,8 +254,8 @@
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
                     <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                    th:text="#{'task.prority.'+${task.priority}}"></span>
-<!--                          th:text="${task.priority.getDisplayName()}"></span>-->
+                          th:text="#{'task.prority.'+${task.priority}}"></span>
+                    <!--                          th:text="${task.priority.getDisplayName()}"></span>-->
 
                     <h5 class="mt-2 mb-2">
                         <a href="#"
@@ -258,18 +264,20 @@
 
                     <p class="mb-0">
                                                         <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
-                       <span class="text-nowrap mb-2 d-inline-block">
+                                <i class="mdi mdi-format-list-bulleted-type text-muted"></i>
+    <b th:text="${task.subtasks.size()}"></b>
+    Sub-Task
+</span>
+                        <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> [[#{task.comment}]]
+                                                            <b th:text="${task.comments.size()}"></b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end"
+                                                                                 th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -289,15 +297,15 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
                                     class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
                         </div>
                     </div>
 
@@ -325,9 +333,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                     <span class="badge"
+                    <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                    th:text="#{'task.prority.'+${task.priority}}"></span>
+                          th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -335,18 +343,20 @@
 
                     <p class="mb-0">
                                                         <span class="pe-2 text-nowrap mb-2 d-inline-block">
-                                                            <i class="mdi mdi-briefcase-outline text-muted"></i>
-                                                            iOS
-                                                        </span>
+                                <i class="mdi mdi-format-list-bulleted-type text-muted"></i>
+    <b th:text="${task.subtasks.size()}"></b>
+    Sub-Task
+</span>
                         <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> [[#{task.comment}]]
+                                                            <b th:text="${task.comments.size()}"></b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end"
+                                                                                 th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -366,15 +376,15 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
                                     class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
-<!--                            &lt;!&ndash; item&ndash;&gt;-->
-<!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
-<!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-plus-circle-outline me-1"></i>Add People</a>-->
+                            <!--                            &lt;!&ndash; item&ndash;&gt;-->
+                            <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
+                            <!--                                    class="mdi mdi-exit-to-app me-1"></i>Leave</a>-->
                         </div>
                     </div>
 

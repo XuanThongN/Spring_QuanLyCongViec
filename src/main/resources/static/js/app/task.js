@@ -7,7 +7,7 @@
 
     $.getAllNotification()
 //Hàm load ra bảng công việc
-    $.renderBoard = ()=>{
+    $.renderBoard = () => {
         $.ajax({
             url: '/Task/LoadBoard',
             type: 'GET',
@@ -106,5 +106,42 @@
         $(this).html('')
         $(this).find('#todo-list').empty()
     });
+
+    $(document).on("click", "button#comment-submit", function (e) {
+        e.preventDefault();
+        let input = $(this).closest("#home-b1").find("#example-textarea")
+        let value = input.val()
+        let data = {
+            senderId: currentId,
+            taskId: $(this).closest(".modal").find(".modal-header").data("task-id"),
+            content: value
+        }
+        $.ajax({
+            url: '/Comment/Create',
+            type: 'POST',
+            contentType: "application/json",
+            async: true,
+            data: JSON.stringify(data),
+            success: function (content) {
+                $("#load-more").before(
+                    `<div class="d-flex mt-2">
+                    <img class="me-3 avatar-sm rounded-circle" src="/images/users/${currentAvatar ? currentAvatar : 'default_avatar.png'}"
+                         alt="Generic placeholder image">
+                    <div class="w-100">
+                        <h5 class="mt-0">${currentName}</h5>
+                        ${value}
+                    </div>
+                </div>`
+                )
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        });
+
+
+        input.val('')
+        console.log(value)
+    })
 
 })(jQuery);

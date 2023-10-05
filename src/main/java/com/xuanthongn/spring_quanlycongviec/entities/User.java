@@ -67,4 +67,9 @@ public class User {
     @ToString.Exclude
     private Collection<Notification> notifications;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "sender",fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Collection<Comment> comments;
+
 }

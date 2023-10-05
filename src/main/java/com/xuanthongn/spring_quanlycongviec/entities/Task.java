@@ -65,4 +65,9 @@ public class Task {
 
     @CreationTimestamp
     private Instant createdOn;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "task",fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Collection<Comment> comments;
 }

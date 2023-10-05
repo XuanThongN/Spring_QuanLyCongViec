@@ -36,10 +36,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
-                                    <li class="breadcrumb-item active" th:text="#{ten}" >Quản lý công việc</li>
+                                    <li class="breadcrumb-item active" th:text="#{ten}">Quản lý công việc</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title" >[[#{ten}]]
+                            <h4 class="page-title">[[#{ten}]]
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#add-new-task-modal"
                                    class="btn btn-success btn-sm ms-3" th:text="#{eleven}">Thêm mới</a></h4>
                         </div>
@@ -49,7 +49,7 @@
 
                 <div class="row">
                     <div class="col-12" id="load-board">
-<!--                    board with columns will rendered here-->
+                        <!--                    board with columns will rendered here-->
                     </div> <!-- end col -->
                 </div>
                 <!-- end row-->
@@ -107,6 +107,12 @@
 
 
 <div th:replace="shared/_script :: script"></div>
+<script>
+    var currentId = "[[${currentUser.id}]]"
+    var currentName = "[[${currentUser.name}]]"
+    var currentUsername = "[[${currentUser.username}]]"
+    var currentAvatar = "[[${currentUser.avatar}]]"
+</script>
 <script th:src="@{/js/app/task.js}"></script>
 </body>
 </html>

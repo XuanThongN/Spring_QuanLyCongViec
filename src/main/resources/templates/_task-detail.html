@@ -1,4 +1,5 @@
-<div class="modal-header" th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}">
+<div class="modal-header" th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}"
+     th:data-task-id="${task.id}">
     <!--Cách 1: để chèn thẻ html vào bên trong th:text-->
     <!--    <h4 class="modal-title" id="TaskDetailModalLabel">-->
     <!--        <span th:text="${task.title}" th:remove="tag"></span>-->
@@ -32,12 +33,12 @@
                                 <div class="col" th:with="notDone=${task.subtasks.size() - task.isDone}">
                                     <h5 id="todo-message" th:if="${notDone>0}">
                                         <span id="todo-remaining"></span>
-                                         Còn [[${notDone}]] /
+                                        Còn [[${notDone}]] /
                                         <span id="todo-total"></span>[[${task.subtasks.size()}]] chưa hoàn thành
                                     </h5>
                                     <h5 id="todo-message-notDone" th:if="${notDone==0}">
                                         <span id="todo-remaining-notDone"></span>
-                                         Tất cả đã hoàn thành
+                                        Tất cả đã hoàn thành
                                     </h5>
                                 </div>
                                 <div class="col-auto">
@@ -134,35 +135,20 @@
                                 class="dripicons-paperclip"></i></button>
                     </div>
                     <div class="btn-group mb-2 ms-2 d-none d-sm-inline-block">
-                        <button type="button" class="btn btn-primary btn-sm">Submit</button>
+                        <button type="button" id="comment-submit" class="btn btn-primary btn-sm">Submit</button>
                     </div>
                 </div>
 
-                <div class="d-flex mt-2">
-                    <img class="me-3 avatar-sm rounded-circle" th:src="@{/images/users/avatar-3.jpg}"
+                <div class="d-flex mt-2" th:each="cmt:${task.comments}">
+                    <img class="me-3 avatar-sm rounded-circle" th:src="@{/images/users/__${cmt.sender.avatar}__}"
                          alt="Generic placeholder image">
                     <div class="w-100">
-                        <h5 class="mt-0">Jeremy Tomlinson</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                        sollicitudin. Cras purus odio, vestibulum in
-                        vulputate at, tempus viverra turpis.
-
-                        <div class="d-flex mt-3">
-                            <a class="pe-3" href="#">
-                                <img th:src="@{/images/users/avatar-4.jpg}" class="avatar-sm rounded-circle"
-                                     alt="Generic placeholder image">
-                            </a>
-                            <div class="w-100">
-                                <h5 class="mt-0">Kathleen Thomas</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-                                ante sollicitudin. Cras purus odio, vestibulum in
-                                vulputate at, tempus viverra turpis.
-                            </div>
-                        </div>
+                        <h5 class="mt-0" th:text="${cmt.sender.name}"></h5>
+                        [[${cmt.content}]]
                     </div>
                 </div>
 
-                <div class="text-center mt-2">
+                <div class="text-center mt-2" id="load-more">
                     <a href="javascript:void(0);" class="text-danger">Load more </a>
                 </div>
             </div>
