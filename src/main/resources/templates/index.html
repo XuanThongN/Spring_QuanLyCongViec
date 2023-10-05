@@ -34,12 +34,12 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
-                                    <li class="breadcrumb-item active">Quản lý công việc</li>
+                                    <li class="breadcrumb-item active" th:text="#{ten}" >Quản lý công việc</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Quản lý Công việc
+                            <h4 class="page-title" >[[#{ten}]]
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#add-new-task-modal"
-                                   class="btn btn-success btn-sm ms-3">Thêm mới</a></h4>
+                                   class="btn btn-success btn-sm ms-3" th:text="#{eleven}">Thêm mới</a></h4>
                         </div>
                     </div>
                 </div>

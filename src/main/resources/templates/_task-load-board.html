@@ -2,7 +2,7 @@
      th:with="priority=${T(com.xuanthongn.spring_quanlycongviec.common.TaskPriority)}, state = ${T(com.xuanthongn.spring_quanlycongviec.common.TaskState)}">
     <div class="tasks" data-plugin="dragula"
          data-containers='["task-list-one", "task-list-two", "task-list-three", "task-list-four", "task-list-five"]'>
-        <h5 class="mt-0 task-header">TO DO</h5>
+        <h5 class="mt-0 task-header text-uppercase" th:text="#{todo}">TO DO</h5>
 
         <div id="task-list-one" class="task-list-items">
 
@@ -12,9 +12,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                    <span class="badge"
+                     <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                          th:text="${task.priority.getDisplayName()}"></span>
+                    th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -33,7 +33,7 @@
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -52,7 +52,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-task-action">
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
-                                    class="mdi mdi-pencil me-1"></i>Edit</a>
+                                    class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
 <!--                            &lt;!&ndash; item&ndash;&gt;-->
 <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
 <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
@@ -79,7 +79,7 @@
     </div>
 
     <div class="tasks">
-        <h5 class="mt-0 task-header text-uppercase">In Progress (2)</h5>
+        <h5 class="mt-0 task-header text-uppercase" th:text="#{doing}">In Progress (2)</h5>
 
         <div id="task-list-two" class="task-list-items">
 
@@ -90,9 +90,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                    <span class="badge"
+                     <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                          th:text="${task.priority.getDisplayName()}"></span>
+                    th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -103,15 +103,15 @@
                                                             <i class="mdi mdi-briefcase-outline text-muted"></i>
                                                             iOS
                                                         </span>
-                        <span class="text-nowrap mb-2 d-inline-block">
+                       <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
+                                                            <b>74</b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -130,7 +130,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-task-action">
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
-                                    class="mdi mdi-pencil me-1"></i>Edit</a>
+                                    class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
 <!--                            &lt;!&ndash; item&ndash;&gt;-->
 <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
 <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
@@ -159,7 +159,7 @@
 
 
     <div class="tasks">
-        <h5 class="mt-0 task-header text-uppercase">Review</h5>
+        <h5 class="mt-0 task-header text-uppercase" th:text="#{four}">Review</h5>
         <div id="task-list-three" class="task-list-items">
 
             <!-- Task Item -->
@@ -169,9 +169,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                    <span class="badge"
+                     <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                          th:text="${task.priority.getDisplayName()}"></span>
+                    th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -182,15 +182,15 @@
                                                             <i class="mdi mdi-briefcase-outline text-muted"></i>
                                                             iOS
                                                         </span>
-                        <span class="text-nowrap mb-2 d-inline-block">
+                       <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
+                                                            <b>74</b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -209,7 +209,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-task-action">
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
-                                    class="mdi mdi-pencil me-1"></i>Edit</a>
+                                    class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
 <!--                            &lt;!&ndash; item&ndash;&gt;-->
 <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
 <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
@@ -237,7 +237,7 @@
     </div>
 
     <div class="tasks">
-        <h5 class="mt-0 task-header text-uppercase">Done (1)</h5>
+        <h5 class="mt-0 task-header text-uppercase" th:text="#{six}">Done (1)</h5>
         <div id="task-list-four" class="task-list-items">
 
             <!-- Task Item -->
@@ -248,7 +248,9 @@
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
                     <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                          th:text="${task.priority.getDisplayName()}"></span>
+                    th:text="#{'task.prority.'+${task.priority}}"></span>
+<!--                          th:text="${task.priority.getDisplayName()}"></span>-->
+
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -259,15 +261,15 @@
                                                             <i class="mdi mdi-briefcase-outline text-muted"></i>
                                                             iOS
                                                         </span>
-                        <span class="text-nowrap mb-2 d-inline-block">
+                       <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
+                                                            <b>74</b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -286,7 +288,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-task-action">
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
-                                    class="mdi mdi-pencil me-1"></i>Edit</a>
+                                    class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
 <!--                            &lt;!&ndash; item&ndash;&gt;-->
 <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
 <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
@@ -313,7 +315,7 @@
         </div> <!-- end company-list-4-->
     </div>
     <div class="tasks">
-        <h5 class="mt-0 task-header text-uppercase">SAVED (1)</h5>
+        <h5 class="mt-0 task-header text-uppercase" th:text="#{five}">SAVED (1)</h5>
         <div id="task-list-five" class="task-list-items">
 
             <!-- Task Item -->
@@ -323,9 +325,9 @@
                 <div class="card-body p-3">
                     <small class="float-end text-muted"
                            th:text="${#dates.format(task.dueDate, 'HH:mm dd/MM/yyyy')}"></small>
-                    <span class="badge"
+                     <span class="badge"
                           th:classappend="${task.priority == priority.LOW} ? 'bg-success' : (${task.priority == priority.MEDIUM} ? 'bg-warning' : 'bg-danger')"
-                          th:text="${task.priority.getDisplayName()}"></span>
+                    th:text="#{'task.prority.'+${task.priority}}"></span>
                     <h5 class="mt-2 mb-2">
                         <a href="#"
                            class="text-body" th:text="${task.title}"></a>
@@ -338,13 +340,13 @@
                                                         </span>
                         <span class="text-nowrap mb-2 d-inline-block">
                                                             <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                                            <b>74</b> Comments
+                                                            <b>74</b> [[#{task.comment}]]
                                                         </span>
                     </p>
                     <ul class="list-group list-group-flush" th:if="${task.subtasks.size()>0}">
                         <li class="list-group-item p-1" th:with="percent=${(task.isDone*100)/(task.subtasks.size())}">
                             <!-- project progress-->
-                            <p class="mb-2 fw-bold">Tiến độ <span class="float-end" th:text="${percent+'%'}">100%</span>
+                            <p class="mb-2 fw-bold">[[#{task.processing}]] <span class="float-end" th:text="${percent+'%'}">100%</span>
                             </p>
                             <div class="progress progress-sm" bis_skin_checked="1">
                                 <div class="progress-bar" role="progressbar" th:aria-valuenow="${percent}"
@@ -363,7 +365,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-task-action">
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item"><i
-                                    class="mdi mdi-pencil me-1"></i>Edit</a>
+                                    class="mdi mdi-pencil me-1"></i>[[#{task.edit}]]</a>
 <!--                            &lt;!&ndash; item&ndash;&gt;-->
 <!--                            <a href="javascript:void(0);" class="dropdown-item"><i-->
 <!--                                    class="mdi mdi-delete me-1"></i>Delete</a>-->
