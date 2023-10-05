@@ -4,7 +4,8 @@
         _$modal_update = $('#task-update-modal'),
         _$form_update = _$modal_update.find('#task-form'),
         _$form = _$modal.find('form')
-    
+
+    $.getAllNotification()
 //Hàm load ra bảng công việc
     $.renderBoard = ()=>{
         $.ajax({

@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -45,11 +46,12 @@ public class MeetingController {
     private ModelMapper mapper;
 
     @RequestMapping("")
-    public String Index(Model model) {
+    public String Index(Model model, Principal principal) {
         List<Meeting> meetings = meetingService.findAll();
         List<User> users = userService.findAll();
         model.addAttribute("meeting", meetings);
         model.addAttribute("users", users);
+        model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
         return "meeting/index";
     }
 

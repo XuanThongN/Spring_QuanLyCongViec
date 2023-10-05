@@ -1,5 +1,6 @@
 package com.xuanthongn.spring_quanlycongviec.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import com.xuanthongn.spring_quanlycongviec.dto.user.UserDto;
@@ -23,7 +24,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/list")
-    public String listUsers(Model theModel) {
+    public String listUsers(Model theModel, Principal principal) {
+        theModel.addAttribute("currentUser", userService.findByUsername(principal.getName()));
         return "user/index";
     }
     @GetMapping("/detail/{userId}")
