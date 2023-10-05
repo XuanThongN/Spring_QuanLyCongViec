@@ -1,0 +1,43 @@
+<div class="modal-header">
+	<h5 class="modal-title" id="exampleModalLabel">Chi tiết cuộc họp</h5>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+	<!-- Các trường input để hiển thị thông tin chi tiết -->
+	<input type="hidden" th:value="${meeting.id}" class="form-control" id="meetingId">
+	<div class="form-group">
+		<label for="meetingTitle">Tiêu đề cuộc họp</label>
+		<input type="text" th:value="${meeting.title}" class="form-control" id="meetingTitle" disabled>
+	</div>
+	<div class="form-group">
+		<label for="daterangetime0">Thời gian Bắt Đầu</label>
+<!--		<input th:value="${#dates.format(meeting.startTime, 'dd MMMM yyyy HH:mm')}" type="text" class="form-control date" id="daterangetime0" data-toggle="input-mask"  disabled>-->
+		<input th:value="${meeting.startTime.toString()}" type="text" name="daterangetime1" class="form-control form-control-light"
+			   id="daterangetime0"
+			   data-toggle="date-picker" data-single-date-picker="true" disabled>
+	</div>
+	<div class="form-group">
+		<label for="daterangetime1">Thời gian Kết Thúc </label>
+<!--		<input th:value="${#dates.format(meeting.endTime, 'dd MMMM yyyy HH:mm')}"  type="text" class="form-control date" id="daterangetime1" data-toggle="input-mask" disabled>-->
+		<input th:value="${meeting.endTime.toString()}" type="text" name="daterangetime1" class="form-control form-control-light"
+			   id="daterangetime1"
+			   data-toggle="date-picker" data-single-date-picker="true" disabled>
+	</div>
+
+	<div class="form-group">
+		<label for="meetingContent">Nội dung cuộc họp</label>
+		<textarea type="text" th:text="${meeting.content}" class="form-control" id="meetingContent" disabled></textarea>
+	</div>
+	<div class="form-group">
+		<label class="form-label">Thành viên tham gia</label>
+		<textarea type="text"  id="meetingUser" class="form-control" th:text="${#strings.listJoin(meeting.userNames, ',')}"disabled></textarea>
+	</div>
+
+</div>
+<div class="modal-footer">
+	<!-- Nút Sửa -->
+	<button type="button" class="btn btn-primary" id="editMeetingButton" th:data-meetingId="${meeting.id}" >Sửa</button>
+	<!-- Nút Xóa -->
+	<button type="button" class="btn btn-danger btn_delete" id="deleteMeetingButton" th:data-meetingId="${meeting.id}">Xóa</button>
+	<button type="button" class="btn btn-secondary me-1" data-bs-dismiss="modal">Đóng</button>
+</div>

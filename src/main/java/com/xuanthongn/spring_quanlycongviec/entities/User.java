@@ -23,7 +23,9 @@
     @AllArgsConstructor // dùng để khai báo constructor với tất cả các properties
     @NoArgsConstructor //
     @Builder
-    @JsonIgnoreProperties({"tasks"}) // Bỏ qua thuộc tính 'tasks' khi chuyển đổi thành JSON
+    @JsonIgnoreProperties({"tasks","meetings"})
+
+    // Bỏ qua thuộc tính 'tasks' khi chuyển đổi thành JSON
     public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,9 +48,7 @@
             private String username;
             private String password;
             private String roles;
-
             private String avatar;
-
 
 
             // mappedBy trỏ tới tên biến tasks ở trong User.
@@ -58,5 +58,10 @@
             @ToString.Exclude
             private Collection<Task> tasks;
 
+        @ManyToMany(mappedBy = "attendees" , cascade = CascadeType.DETACH)
+        // LAZY để tránh việc truy xuất dữ liệu không cần thiết. Lúc nào cần thì mới query
+        @EqualsAndHashCode.Exclude
+        @ToString.Exclude
+        private Collection<Meeting> meetings;
 
     }
