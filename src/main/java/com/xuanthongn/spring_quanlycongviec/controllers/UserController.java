@@ -29,13 +29,14 @@ public class UserController {
         return "user/index";
     }
     @GetMapping("/detail/{userId}")
-    public String showUserDetail(@PathVariable int userId, Model theModel) {
+    public String showUserDetail(@PathVariable int userId, Model theModel, Principal principal) {
         // Lấy thông tin chi tiết của người dùng theo userId từ service
         User user = userService.findById(userId);
 
         // Đưa thông tin người dùng vào model
         theModel.addAttribute("user", user);
 
+        theModel.addAttribute("currentUser", userService.findByUsername(principal.getName()));
         // Chuyển đến trang chi tiết
         return "user/detail";
     }
