@@ -29,10 +29,7 @@ public class WebSecurityConfig  {
 //		this.repository = repository;
 //	}
 String[] staticResources = {
-		"/css/**",
-		"/images/**",
-		"/fonts/**",
-		"/scripts/**",};
+		"/static/**"};
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserService(repository);
@@ -55,6 +52,9 @@ String[] staticResources = {
 				.logout()
 				.logoutSuccessUrl("/login") // Định hướng sau khi đăng xuất đến trang login
 				.permitAll()
+				.and()
+				.exceptionHandling()
+				.accessDeniedPage("/error")
 				.and()
 				.build();
 	}
