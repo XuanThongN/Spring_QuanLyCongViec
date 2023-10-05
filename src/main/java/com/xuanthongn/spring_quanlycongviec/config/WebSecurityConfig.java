@@ -29,8 +29,12 @@ public class WebSecurityConfig  {
 	//	public WebSecurityConfig(UserRepository repository) {
 //		this.repository = repository;
 //	}
-	String[] staticResources = {
-			"/static/**"};
+	String[] resources = new String[]{
+			"/","/include/**",
+			"/static/**",
+			"/css/**","/icons/**","/images/**","/js/**","/fonts/**"
+	};
+
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserService(repository);
@@ -40,6 +44,15 @@ public class WebSecurityConfig  {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf().disable()
 				.authorizeHttpRequests()
+				.requestMatchers(
+						"/login/**",
+						"/static/**",
+						"/plugins/**",
+						"/dist/**",
+						"/css/**",
+						"/js/**",
+						"/fonts/**",
+						"/favicon.ico").permitAll()
 				.requestMatchers("/user/list").hasAnyAuthority("Admin")
 				.requestMatchers("/Task").hasAnyAuthority("User", "Admin")
 				.requestMatchers("/meeting").hasAnyAuthority("Admin","User")
