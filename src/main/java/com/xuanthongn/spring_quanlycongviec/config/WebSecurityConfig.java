@@ -54,8 +54,8 @@ public class WebSecurityConfig  {
 						"/fonts/**",
 						"/favicon.ico").permitAll()
 				.requestMatchers("/user/list").hasAnyAuthority("Admin")
-				.requestMatchers("/Task").hasAnyAuthority("User", "Admin")
-				.requestMatchers("/meeting").hasAnyAuthority("Admin","User")
+				.requestMatchers("/Task/**").hasAnyAuthority("User", "Admin")
+				.requestMatchers("/meeting/**").hasAnyAuthority("Admin","User")
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				.anyRequest().authenticated()
 				.and()

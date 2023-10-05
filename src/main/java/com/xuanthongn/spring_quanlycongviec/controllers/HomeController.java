@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -27,13 +28,6 @@ public class HomeController {
     private TaskService taskService;
     @Autowired
     private UserService userService;
-    //    @RequestMapping("/")
-//    public String Index(Model model) {
-//        List<TaskDto> tasks = taskService.findAll();
-//        model.addAttribute("tasks", tasks);
-//        model.addAttribute("users", userService.findAll());
-//        return "index";
-//    }
 
     @Autowired
     private MeetingService meetingService;
@@ -44,7 +38,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String Dashboard(Model model) {
+    public String Dashboard(Model model, Principal principal) {
         // Gọi các phương thức từ các controller khác để lấy dữ liệu
         List<TaskDto> tasks = taskService.findAll();
         List<User> users = userService.findAll();
@@ -62,6 +56,7 @@ public class HomeController {
         model.addAttribute("totalTasks", totalTasks);
         model.addAttribute("totalUsers", totalUsers);
         model.addAttribute("totalMeetings", totalMeetings);
+        model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 
         return "dashboard"; // Trả về tên của trang dashboard.html
     }
