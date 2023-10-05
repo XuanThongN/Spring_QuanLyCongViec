@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="NewTaskModalLabel">Tạo mới Công việc</h4>
+                <h4 class="modal-title" id="NewTaskModalLabel" th:text="#{twelve}">Tạo mới Công việc</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -25,9 +25,9 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="mb-3">
-                                <label for="task-title" class="form-label">Tiêu đề</label>
+                                <label for="task-title" class="form-label" th:text="#{third-teen}">Tiêu đề</label>
                                 <input type="text" name="title" class="form-control form-control-light" id="task-title"
-                                       placeholder="Nhập tiêu đề" required>
+                                       th:placeholder="#{task.subtask.insert-title}" required>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -36,22 +36,22 @@
 
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="task-priority2" class="form-label">Độ ưu tiên</label>
+                                <label for="task-priority2" class="form-label" th:text="#{fif-teen}">Độ ưu tiên</label>
                                 <select name="priority" class="form-select form-control-light" id="task-priority2"
                                         required>
                                     <option th:value="${priority.LOW}"
-                                            th:text="${priority.LOW.getDisplayName()}"></option>
+                                            th:text="#{'task.prority.'+${priority.LOW}}"></option>
                                     <option th:value="${priority.MEDIUM}"
-                                            th:text="${priority.MEDIUM.getDisplayName()}"></option>
+                                            th:text="#{'task.prority.'+${priority.MEDIUM}}"></option>
                                     <option th:value="${priority.HIGH}"
-                                            th:text="${priority.HIGH.getDisplayName()}"></option>
+                                            th:text="#{'task.prority.'+${priority.HIGH}}"></option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="editor" class="form-label">Mô tả</label>
+                        <label for="editor" class="form-label" th:text="#{six-teen}">Mô tả</label>
                         <textarea class="form-control form-control-light" id="editor" name="description"
                                   rows="5" required></textarea>
                         <div class="invalid-feedback">
@@ -65,14 +65,15 @@
                             <!-- Todo-->
                             <div class="card">
                                 <div class="card-body px-0">
-                                    <h4 class="header-title mb-3">Việc cần làm</h4>
+                                    <h4 class="header-title mb-3" th:text="#{seven-teen}">Việc cần làm</h4>
 
                                     <div class="todoapp">
                                         <div class="row">
                                             <div class="col">
-                                                <h5 id="todo-message"><span id="todo-remaining"></span> của <span
-                                                        id="todo-total"></span> còn lại</h5>
+                                                <h5 id="todo-message"> [[#{eight-teen}]] <span
+                                                        id="todo-total"></span>/<span id="todo-remaining"></span> [[#{nine-teen}]]</h5>
                                             </div>
+
                                             <div class="col-auto">
 <!--                                                <a href="" class="float-end btn btn-light btn-sm" id="btn-archive">Archive</a>-->
                                             </div>
@@ -86,14 +87,14 @@
                                             <div class="col">
                                                 <input form="todo-form" type="text" id="todo-input-text"
                                                        name="todo-input-text"
-                                                       class="form-control" placeholder="Thêm mới Việc cần làm" required="">
+                                                       class="form-control" th:placeholder="#{twen-ty}" required="">
                                                 <div class="invalid-feedback">
                                                     Vui lòng nhập tiêu đề Việc cần làm
                                                 </div>
                                             </div>
                                             <div class="col-auto d-grid">
                                                 <button class="btn-primary btn-md btn waves-effect waves-light"
-                                                        form="todo-form" type="submit" id="todo-btn-submit">Thêm
+                                                        form="todo-form" type="submit" id="todo-btn-submit" th:text="#{eleven}">Thêm
                                                 </button>
                                             </div>
                                         </div>
@@ -107,7 +108,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="task-title" class="form-label">Thành viên tham gia</label>
+                                <label for="task-title" class="form-label" th:text="#{twen-one}">Thành viên tham gia</label>
                                 <select class="select2 form-select select2-multiple" data-toggle="select2"
                                         multiple="multiple" data-placeholder="Chọn thành viên ..." required>
                                     <optgroup label="Danh sách Thành viên">
@@ -115,7 +116,7 @@
                                                 th:text="${user.name}"></option>
                                     </optgroup>
                                 </select>
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback" >
                                     Chọn Thành viên tham gia.
                                 </div>
                             </div>
@@ -123,7 +124,7 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Ngày hết hạn</label>
+                                <label class="form-label" th:text="#{twen-two}">Ngày hết hạn</label>
                                 <input type="text" name="dueDate" class="form-control form-control-light"
                                        id="birthdatepicker"
                                        data-toggle="date-picker" data-single-date-picker="true" required>
@@ -136,10 +137,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="task-title" class="form-label">Trạng thái</label>
+                                <label for="task-title" class="form-label" th:text="#{status}">Trạng thái</label>
                                 <select class="form-select" name="state" required>
-                                    <option th:each="st: ${state.values()}" th:value="${st}"
-                                            th:text="${st.getDisplayName()}"></option>
+                                    <option th:value="${state.TODO}"
+                                            th:text="#{'task.state.'+${state.TODO}}"></option>
+                                    <option th:value="${state.IN_PROGRESS}"
+                                            th:text="#{'task.state.'+${state.IN_PROGRESS}}"></option>
+                                    <option th:value="${state.DONE}"
+                                            th:text="#{'task.state.'+${state.DONE}}"></option>
+                                    <option th:value="${state.REVIEW}"
+                                            th:text="#{'task.state.'+${state.REVIEW}}"></option>
+                                    <option th:value="${state.SAVED}"
+                                            th:text="#{'task.state.'+${state.SAVED}}"></option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Chọn trạng thái
@@ -150,8 +159,8 @@
                     </div>
 
                     <div class="text-end">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Huỷ</button>
-                        <button type="submit" form="task-form" class="btn btn-primary">Lưu</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">[[#{cancle}]]</button>
+                        <button type="submit" form="task-form" class="btn btn-primary">[[#{save}]]</button>
                     </div>
                 </form>
             </div>
