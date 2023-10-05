@@ -1,6 +1,11 @@
 package com.xuanthongn.spring_quanlycongviec.controllers;
 
+import com.xuanthongn.spring_quanlycongviec.dto.meeting.MeetingDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.TaskDto;
+import com.xuanthongn.spring_quanlycongviec.dto.user.UserDto;
+import com.xuanthongn.spring_quanlycongviec.entities.Meeting;
+import com.xuanthongn.spring_quanlycongviec.entities.User;
+import com.xuanthongn.spring_quanlycongviec.services.MeetingService;
 import com.xuanthongn.spring_quanlycongviec.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,14 +34,36 @@ public class HomeController {
 //        model.addAttribute("users", userService.findAll());
 //        return "index";
 //    }
+
+    @Autowired
+    private MeetingService meetingService;
+
     @GetMapping("/error")
     public String error() {
         return "error"; // Trả về tên của trang đăng nhập (ví dụ: "login.html")
     }
 
     @GetMapping("/")
-    public String Dashboard() {
-        return "dashboard"; // Trả về tên của trang đăng nhập (ví dụ: "login.html")
+    public String Dashboard(Model model) {
+        // Gọi các phương thức từ các controller khác để lấy dữ liệu
+        List<TaskDto> tasks = taskService.findAll();
+        List<User> users = userService.findAll();
+        List<Meeting> meetings = meetingService.findAll();
+
+        // Tính toán các số liệu bạn cần
+        int totalTasks = tasks.size();
+        int totalUsers = users.size();
+        int totalMeetings = meetings.size();
+
+        // Truyền các số liệu vào Model
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("users", users);
+        model.addAttribute("meetings", meetings);
+        model.addAttribute("totalTasks", totalTasks);
+        model.addAttribute("totalUsers", totalUsers);
+        model.addAttribute("totalMeetings", totalMeetings);
+
+        return "dashboard"; // Trả về tên của trang dashboard.html
     }
 
     @GetMapping("/login")
