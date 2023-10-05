@@ -1,0 +1,17 @@
+<!-- item-->
+<a th:each="noti: ${notifications}" th:href="@{/Task}" class="dropdown-item notify-item" data-bs-toggle="tooltip" data-bs-placement="top"
+   data-bs-custom-class="custom-tooltip"
+   th:data-bs-title="${noti.content}">
+    <div class="notify-icon bg-primary" th:if="${noti.sender.avatar==null}">
+        <i class="mdi mdi-comment-account-outline"></i>
+    </div>
+    <div class="notify-icon" th:if="${noti.sender.avatar!=null}">
+        <img th:src="@{/images/users/__${noti.sender.avatar}__}" th:title="${noti.sender.name}" class="img-fluid rounded-circle" alt=""></div>
+    <p class="notify-details">[[${noti.content}]]
+        <small class="text-muted" th:text="${#dates.format(noti.createdOn,'HH:mm  dd MMM yyyy')}"></small>
+    </p>
+</a>
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>

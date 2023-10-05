@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -28,18 +29,12 @@ import java.util.Date;
 @Builder
 @JsonIgnoreProperties({"tasks"}) // Bỏ qua thuộc tính 'tasks' khi chuyển đổi thành JSON
 public class UserDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull
-    @NotBlank(message = "Tên người dùng không thể để trống")
     private String name;
 
     private Date birthday;
 
-    @NotBlank(message = "Tên người dùng không thể để trống")
     private String username;
     private String roles;
 

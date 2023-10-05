@@ -1,38 +1,49 @@
 package com.xuanthongn.spring_quanlycongviec.controllers;
 
+import com.xuanthongn.spring_quanlycongviec.common.NotificationType;
+import com.xuanthongn.spring_quanlycongviec.dto.notification.NotificationDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.CreateTaskDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.TaskDto;
 import com.xuanthongn.spring_quanlycongviec.dto.task.UpdateTaskDto;
+import com.xuanthongn.spring_quanlycongviec.dto.user.UserDto;
+import com.xuanthongn.spring_quanlycongviec.entities.Notification;
 import com.xuanthongn.spring_quanlycongviec.entities.Task;
 import com.xuanthongn.spring_quanlycongviec.entities.User;
 import com.xuanthongn.spring_quanlycongviec.repository.TaskRepository;
+import com.xuanthongn.spring_quanlycongviec.services.NotificationService;
 import com.xuanthongn.spring_quanlycongviec.services.TaskService;
 import com.xuanthongn.spring_quanlycongviec.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/Task")
 public class TaskController {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     @Autowired
     private TaskService taskService;
     @Autowired
     private UserService userService;
     @Autowired
-    private TaskRepository taskRepository;
+    private NotificationService notificationService;
 
     @RequestMapping("")
-    public String Index(Model model) {
+    public String Index(Model model,Principal principal) {
         try {
             model.addAttribute("users", userService.findAll());
+            model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +66,7 @@ public class TaskController {
     }
 
     @PostMapping("/Create")
-    public String Create(@RequestBody @Valid CreateTaskDto task, BindingResult bindingResult) {
+    public String Create(@RequestBody @Valid CreateTaskDto task, BindingResult bindingResult, Principal principal) {
         try {
             // Khi có BindingResult thì lỗi được tạm bỏ qua để xử lý thủ công
             // Nếu có lỗi thì chặn lại
@@ -66,6 +77,14 @@ public class TaskController {
                     throw new RuntimeException(e);
                 }
             taskService.save(task);
+            NotificationDto notification = NotificationDto.builder()
+                    .content("Đã tạo mới thẻ "+task.getTitle().toUpperCase())
+                    .sender(UserDto.builder()
+                            .username(principal.getName())
+                            .build())
+                    .type(NotificationType.CREATE)
+                    .build();
+            notificationService.sendNotification(notification);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,12 +121,20 @@ public class TaskController {
     }
 
     @PostMapping("/Update")
-    public String Update(@RequestBody @Valid UpdateTaskDto task, BindingResult bindingResult) {
+    public String Update(@RequestBody @Valid UpdateTaskDto task, BindingResult bindingResult,Principal principal) {
         try {
             // Khi có BindingResult thì lỗi được tạm bỏ qua để xử lý thủ công
             // Nếu có lỗi thì chặn lại
             if (bindingResult.hasErrors()) return null;
             taskService.update(task);
+            NotificationDto notification = NotificationDto.builder()
+                    .content("Đã cập nhật thẻ "+task.getTitle().toUpperCase())
+                    .sender(UserDto.builder()
+                            .username(principal.getName())
+                            .build())
+                    .type(NotificationType.UPDATE)
+                    .build();
+            notificationService.sendNotification(notification);
         } catch (Exception e) {
             e.printStackTrace();
         }

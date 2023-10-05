@@ -65,6 +65,10 @@ public class UserService implements UserDetailsService, IGenericService<User> {
         return userRepository.findById(id).get();
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).get();
+    }
+
     @Override
     public void delete(User entity) {
         userRepository.delete(entity);
