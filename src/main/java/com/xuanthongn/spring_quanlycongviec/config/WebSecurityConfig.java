@@ -22,13 +22,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
-public class WebSecurityConfig {
+public class WebSecurityConfig  {
 	private final UserRepository repository;
 
 //	public WebSecurityConfig(UserRepository repository) {
 //		this.repository = repository;
 //	}
-
+String[] staticResources = {
+		"/css/**",
+		"/images/**",
+		"/fonts/**",
+		"/scripts/**",};
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserService(repository);
@@ -36,19 +40,22 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-	    return http.csrf().disable()
-	        .authorizeHttpRequests()
-	            .requestMatchers("/hello").permitAll()
-	            .anyRequest().authenticated()
-	        .and()
-	        .formLogin()
-	            .loginPage("/login")
-	            .permitAll()
-	        .and()
-	        .logout()
-	            .permitAll()
-	        .and()
-	        .build();
+		return http.csrf().disable()
+				.authorizeHttpRequests()
+				.requestMatchers("/hello").permitAll()
+				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login")
+				.permitAll()
+				.and()
+				.logout()
+				.logoutSuccessUrl("/login") // Định hướng sau khi đăng xuất đến trang login
+				.permitAll()
+				.and()
+
+				.build();
 	}
 
 
@@ -64,5 +71,6 @@ public class WebSecurityConfig {
 		authenticationProvider.setPasswordEncoder(passwordEncoder());
 		return authenticationProvider;
 	}
+
 
 }
