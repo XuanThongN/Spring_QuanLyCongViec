@@ -1,3 +1,4 @@
+
 package com.xuanthongn.spring_quanlycongviec.config;
 
 import com.xuanthongn.spring_quanlycongviec.repository.UserRepository;
@@ -25,14 +26,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig  {
 	private final UserRepository repository;
 
-//	public WebSecurityConfig(UserRepository repository) {
+	//	public WebSecurityConfig(UserRepository repository) {
 //		this.repository = repository;
 //	}
-String[] staticResources = {
-		"/css/**",
-		"/images/**",
-		"/fonts/**",
-		"/scripts/**",};
+	String[] staticResources = {
+			"/static/**"};
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserService(repository);
@@ -55,6 +53,9 @@ String[] staticResources = {
 				.logout()
 				.logoutSuccessUrl("/login") // Định hướng sau khi đăng xuất đến trang login
 				.permitAll()
+				.and()
+				.exceptionHandling()
+				.accessDeniedPage("/error")
 				.and()
 				.build();
 	}
