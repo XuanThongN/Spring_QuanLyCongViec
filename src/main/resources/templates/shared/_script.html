@@ -26,4 +26,9 @@
     <script th:src="@{/js/vendor/stomp.min.js}"></script>
     <script th:src="@{/js/app/notification.js}"></script>
 <!--    <script th:src="@{/js/app/chat.js}"></script>-->
+
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 </div>

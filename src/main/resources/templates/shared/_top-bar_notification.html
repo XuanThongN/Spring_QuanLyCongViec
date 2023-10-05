@@ -11,7 +11,4 @@
         <small class="text-muted" th:text="${#dates.format(noti.createdOn,'HH:mm  dd MMM yyyy')}"></small>
     </p>
 </a>
-<script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-</script>
+

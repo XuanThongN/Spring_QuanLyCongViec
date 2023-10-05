@@ -16,6 +16,7 @@ import com.xuanthongn.spring_quanlycongviec.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,7 +67,7 @@ public class TaskController {
     }
 
     @PostMapping("/Create")
-    public String Create(@RequestBody @Valid CreateTaskDto task, BindingResult bindingResult, Principal principal) {
+    public ResponseEntity<String> Create(@RequestBody @Valid CreateTaskDto task, BindingResult bindingResult, Principal principal) {
         try {
             // Khi có BindingResult thì lỗi được tạm bỏ qua để xử lý thủ công
             // Nếu có lỗi thì chặn lại
@@ -85,10 +86,11 @@ public class TaskController {
                     .type(NotificationType.CREATE)
                     .build();
             notificationService.sendNotification(notification);
+            return ResponseEntity.ok("Task added successfully");
         } catch (Exception e) {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
-        return "index";
     }
 
     @GetMapping("/Details/{id}")
@@ -121,23 +123,31 @@ public class TaskController {
     }
 
     @PostMapping("/Update")
-    public String Update(@RequestBody @Valid UpdateTaskDto task, BindingResult bindingResult,Principal principal) {
+    public ResponseEntity<String> updateTask(@RequestBody @Valid UpdateTaskDto task, BindingResult bindingResult, Principal principal) {
         try {
-            // Khi có BindingResult thì lỗi được tạm bỏ qua để xử lý thủ công
-            // Nếu có lỗi thì chặn lại
-            if (bindingResult.hasErrors()) return null;
+            // Check for validation errors
+            if (bindingResult.hasErrors()) {
+                return ResponseEntity.badRequest().body("Validation failed");
+            }
+
+            // Update the task
             taskService.update(task);
+
+            // Send a notification
             NotificationDto notification = NotificationDto.builder()
-                    .content("Đã cập nhật thẻ "+task.getTitle().toUpperCase())
+                    .content("Đã cập nhật thẻ " + task.getTitle().toUpperCase())
                     .sender(UserDto.builder()
                             .username(principal.getName())
                             .build())
                     .type(NotificationType.UPDATE)
                     .build();
             notificationService.sendNotification(notification);
+
+            return ResponseEntity.ok("Task updated successfully");
         } catch (Exception e) {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
-        return "index";
     }
+
 }
