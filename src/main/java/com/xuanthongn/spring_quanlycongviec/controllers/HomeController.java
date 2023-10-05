@@ -29,16 +29,10 @@ public class HomeController {
 //        model.addAttribute("users", userService.findAll());
 //        return "index";
 //    }
-@GetMapping("/error")
-public String error() {
-    return "error"; // Trả về tên của trang đăng nhập (ví dụ: "login.html")
-}
-
-    @GetMapping("/")
-    public String Dashboard() {
-        return "dashboard"; // Trả về tên của trang đăng nhập (ví dụ: "login.html")
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("hello is exception");
     }
-
     @GetMapping("/login")
     public String login() {
         return "login"; // Trả về tên của trang đăng nhập (ví dụ: "login.html")
